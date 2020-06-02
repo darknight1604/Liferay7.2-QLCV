@@ -1,0 +1,32 @@
+apply plugin: 'war'
+
+repositories {
+     mavenCentral()
+     mavenLocal()
+}
+
+dependencies {
+    runtime group: 'org.glassfish', name: 'javax.faces', version: '2.2.20'
+    runtime group: 'com.liferay.faces', name: 'com.liferay.faces.bridge.ext', version: '6.0.0'
+    runtime group: 'com.liferay.faces', name: 'com.liferay.faces.bridge.impl', version: '4.1.4'
+    runtime group: 'com.liferay.faces', name: 'com.liferay.faces.bridge.api', version: '4.1.0'
+    
+    compile group: 'log4j', name: 'log4j', version: '1.2.14'
+    compile group: 'org.primefaces', name: 'primefaces', version: '7.0'
+    compile group: 'com.liferay.faces', name: 'com.liferay.faces.portal', version: '3.0.1'
+    
+    compileOnly group: "com.liferay.portal", name: "com.liferay.portal.kernel", version: "2.0.0"
+    
+    providedCompile group: 'javax.faces', name: 'javax.faces-api', version: '2.2'
+    providedCompile group: "org.osgi", name:"org.osgi.core", version:"6.0.0"
+    providedCompile group: 'com.nss.commoncategory', name: 'com.nss.commoncategory.api', version: '1.0.0'
+    
+    providedCompile group: "com.liferay", name: "com.liferay.petra.lang", version: "3.0.0"
+	providedCompile group: "com.liferay", name: "com.liferay.petra.string", version: "3.0.0"
+	
+	providedCompile group: 'org.osgi', name: 'org.osgi.service.component.annotations', version: '1.3.0'
+	providedCompile group: 'com.liferay.portal', name: 'com.liferay.portal.kernel', version: '3.3.1'
+	
+	
+}
+

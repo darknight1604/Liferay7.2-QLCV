@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<custom-sql>
+	<sql id="com.nss.commoncategory.service.persistence.ContinentFinder.countByBaseSearch">
+		<![CDATA[
+			SELECT COUNT(nss_platform_continent.*) AS COUNT_VALUE
+			FROM nss_platform_continent
+			WHERE true
+			AND active_ = ? 
+			AND
+				(	
+					(LOWER(name) LIKE ? [$AND_OR_NULL_CHECK$]) [$AND_OR_CONNECTOR$]
+					(LOWER(internationalname) LIKE ? [$AND_OR_NULL_CHECK$]) [$AND_OR_CONNECTOR$]
+					(LOWER(code_) LIKE ? [$AND_OR_NULL_CHECK$]) [$AND_OR_CONNECTOR$]
+					(LOWER(description) LIKE ? [$AND_OR_NULL_CHECK$])
+				)
+				
+		]]>
+	</sql>
+	<sql id="com.nss.commoncategory.service.persistence.ContinentFinder.findByBaseSearch">
+		<![CDATA[
+			SELECT nss_platform_continent.*
+			FROM nss_platform_continent
+			WHERE true
+			AND active_ = ? 
+			AND
+				(	
+					(LOWER(name) LIKE ? [$AND_OR_NULL_CHECK$]) [$AND_OR_CONNECTOR$]
+					(LOWER(internationalname) LIKE ? [$AND_OR_NULL_CHECK$]) [$AND_OR_CONNECTOR$]
+					(LOWER(code_) LIKE ? [$AND_OR_NULL_CHECK$]) [$AND_OR_CONNECTOR$]
+					(LOWER(description) LIKE ? [$AND_OR_NULL_CHECK$])
+				)
+		]]>
+	</sql>
+</custom-sql>

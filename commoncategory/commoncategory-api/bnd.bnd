@@ -1,0 +1,10 @@
+Bundle-Name: Common Category API
+Bundle-SymbolicName: com.nss.commoncategory.api
+Bundle-Version: 1.0.0
+Export-Package:\
+	com.nss.commoncategory.exception,\
+	com.nss.commoncategory.model,\
+	com.nss.commoncategory.service,\
+	com.nss.commoncategory.service.persistence
+-check: EXPORTS
+-includeresource: META-INF/service.xml=../commoncategory-service/service.xml

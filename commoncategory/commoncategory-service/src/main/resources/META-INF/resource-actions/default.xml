@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<!DOCTYPE resource-action-mapping PUBLIC "-//Liferay//DTD Resource Action Mapping 7.2.0//EN" "http://www.liferay.com/dtd/liferay-resource-action-mapping_7_2_0.dtd">
+
+<resource-action-mapping>
+	<resource file="META-INF/resource-actions/continent.xml" />
+	<resource file="META-INF/resource-actions/country.xml" />
+</resource-action-mapping>

@@ -1,0 +1,52 @@
+<?xml version="1.0"?>
+
+<model-hints>
+	<model name="com.nss.commoncategory.model.Continent">
+		<field name="continentId" type="long" />
+		<field name="companyId" type="long" />
+		<field name="groupId" type="long" />
+		<field name="userId" type="long" />
+		<field name="userName" type="String" />
+		<field name="createDate" type="Date" />
+		<field name="modifiedDate" type="Date" />
+		<field name="name" type="String">
+			<hint name="max-length">255</hint>
+		</field>
+		<field name="internationalName" type="String">
+			<hint name="max-length">255</hint>
+		</field>
+		<field name="code" type="String" />
+		<field name="description" type="String">
+			<hint-collection name="TEXTAREA" />
+		</field>
+		<field name="priority" type="int" />
+		<field name="active" type="boolean" />
+		<field name="countCode" type="int" />
+	</model>
+	<model name="com.nss.commoncategory.model.Country">
+		<field name="countryId" type="long" />
+		<field name="companyId" type="long" />
+		<field name="groupId" type="long" />
+		<field name="userId" type="long" />
+		<field name="userName" type="String" />
+		<field name="createDate" type="Date" />
+		<field name="modifiedDate" type="Date" />
+		<field name="continentId" type="long" />
+		<field name="name" type="String">
+			<hint name="max-length">255</hint>
+		</field>
+		<field name="internationalName" type="String">
+			<hint name="max-length">255</hint>
+		</field>
+		<field name="nationality" type="String">
+			<hint name="max-length">255</hint>
+		</field>
+		<field name="code" type="String" />
+		<field name="description" type="String">
+			<hint-collection name="TEXTAREA" />
+		</field>
+		<field name="priority" type="int" />
+		<field name="active" type="boolean" />
+		<field name="countCode" type="int" />
+	</model>
+</model-hints>

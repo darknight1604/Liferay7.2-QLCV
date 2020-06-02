@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<custom-sql>
+	<sql id="com.nss.commoncategory.service.persistence.CountryFinder.countByBaseSearch">
+		<![CDATA[
+			SELECT COUNT(nss_platform_country.*) AS COUNT_VALUE
+			FROM nss_platform_country
+			WHERE true
+			AND companyId = ?
+			AND groupId = ?
+			AND active_ = ?
+			AND continentId = ?
+			AND
+				(	
+					(LOWER(name) LIKE ? [$AND_OR_NULL_CHECK$]) [$AND_OR_CONNECTOR$]
+					(LOWER(internationalname) LIKE ? [$AND_OR_NULL_CHECK$]) [$AND_OR_CONNECTOR$]
+					(LOWER(code_) LIKE ? [$AND_OR_NULL_CHECK$]) [$AND_OR_CONNECTOR$]
+					(LOWER(description) LIKE ? [$AND_OR_NULL_CHECK$])
+				)
+				
+		]]>
+	</sql>
+	<sql id="com.nss.commoncategory.service.persistence.CountryFinder.findByBaseSearch">
+		<![CDATA[
+			SELECT nss_platform_country.*
+			FROM nss_platform_country
+			WHERE true
+			AND companyId = ?
+			AND groupId = ?
+			AND active_ = ?
+			AND continentId = ?
+			AND
+				(	
+					(LOWER(name) LIKE ? [$AND_OR_NULL_CHECK$]) [$AND_OR_CONNECTOR$]
+					(LOWER(internationalname) LIKE ? [$AND_OR_NULL_CHECK$]) [$AND_OR_CONNECTOR$]
+					(LOWER(code_) LIKE ? [$AND_OR_NULL_CHECK$]) [$AND_OR_CONNECTOR$]
+					(LOWER(description) LIKE ? [$AND_OR_NULL_CHECK$])
+				)
+		]]>
+	</sql>
+</custom-sql>

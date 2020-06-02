@@ -1,0 +1,76 @@
+<?xml version="1.0"?>
+<!DOCTYPE service-builder PUBLIC "-//Liferay//DTD Service Builder 7.2.0//EN" "http://www.liferay.com/dtd/liferay-service-builder_7_2_0.dtd">
+
+<service-builder dependency-injector="ds" package-path="com.nss.commoncategory">
+	<namespace>NSS</namespace>
+	<entity name="Continent" local-service="true" remote-service="true" table="nss_platform_continent">
+		<!-- PK fields -->
+		<column name="continentId" type="long" primary="true" />
+		<!--Audit fields -->
+		<column name="companyId" type="long" />
+		<column name="groupId" type="long" />
+		<column name="userId" type="long" />
+		<column name="userName" type="String" />
+		<column name="createDate" type="Date" />
+		<column name="modifiedDate" type="Date" />
+		<!-- Other fields -->
+		<column name="name" type="String" />
+		<column name="internationalName" type="String" />
+		<column name="code" type="String" />
+		<column name="description" type="String" />
+		<column name="priority" type="int" />
+		<column name="active" type="boolean" />
+		<column name="countCode" type="int" />
+		<order>
+			<order-column name="priority" order-by="asc" />
+		</order>
+		<!-- Finder methods -->
+		<finder name="Code" return-type="Continent">
+			<finder-column name="code" />
+		</finder>
+		<finder name="Name" return-type="Continent">
+			<finder-column name="name" />
+		</finder>
+		<finder name="Active" return-type="Collection">
+			<finder-column name="active" />
+		</finder>
+	</entity>
+	<entity name="Country" local-service="true" remote-service="true" table="nss_platform_country">
+		<!-- PK fields -->
+		<column name="countryId" type="long" primary="true" />
+		<!--Audit fields -->
+		<column name="companyId" type="long" />
+		<column name="groupId" type="long" />
+		<column name="userId" type="long" json-enabled="false"/>
+		<column name="userName" type="String" json-enabled="false"/>
+		<column name="createDate" type="Date" />
+		<column name="modifiedDate" type="Date" />
+		<!-- Other fields -->
+		<column name="continentId" type="long" />
+		<column name="name" type="String" />
+		<column name="internationalName" type="String" />
+		<column name="nationality" type="String" />
+		<column name="code" type="String" />
+		<column name="description" type="String" />
+		<column name="priority" type="int" />
+		<column name="active" type="boolean" />
+		<column name="countCode" type="int" />
+		<order>
+			<order-column name="priority" order-by="asc" />
+		</order>
+		<!-- Finder methods -->
+		<finder name="Active" return-type="Collection">
+			<finder-column name="active" />
+		</finder>
+		<finder name="Code" return-type="Country">
+			<finder-column name="code" />
+		</finder>
+		<finder name="Name" return-type="Country">
+			<finder-column name="name" />
+		</finder>
+	</entity>
+	<exceptions>
+		<exception>EmptyCode</exception>
+		<exception>DuplicateCode</exception>
+	</exceptions>
+</service-builder>

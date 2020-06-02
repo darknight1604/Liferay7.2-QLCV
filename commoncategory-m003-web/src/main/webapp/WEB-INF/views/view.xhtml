@@ -1,0 +1,136 @@
+<?xml version="1.0"?>
+
+<f:view
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+>
+	<h:head>
+		<h:outputStylesheet library="css" name="main.css" />
+	</h:head>
+	<h:body>
+		<h:form id="frm">
+			<h:panelGroup>
+				<p:commandButton process="@this" update="dialog" value="Add Country" 
+					actionListener="#{countryBean.openNewObject}"
+					rendered="#{countryBean.hasAddPermission}">
+					<p:resetInput target="dialog"/>
+				</p:commandButton>
+			</h:panelGroup>
+			<p:messages globalOnly="true" closable="true"/>
+			<br/>
+			<p:fieldset legend="#{i18n['search']}" toggleable="true" collapsed="true">
+				<h:panelGroup id="pngSearch">
+					<h:panelGrid styleClass="aui-w100" columns="4" columnClasses="aui-w15 aui-wb, aui-w35, aui-w15 aui-wb, aui-w35">
+						<h:outputText value="Name: " />
+						<p:inputText value="#{countryBean.lazyModel.criteria.name}"/>
+						<h:outputText value="International Name: " />
+						<p:inputText value="#{countryBean.lazyModel.criteria.internationalName}"/>
+						<h:outputText value="Code: " />
+						<p:inputText value="#{countryBean.lazyModel.criteria.code}"/>
+						<h:outputText value="Continent: " />
+						<p:selectOneMenu value="#{countryBean.lazyModel.criteria.continentId}" filter="true" filterMatchMode="contains">
+							<f:selectItem itemValue="0" itemLabel=""/>
+							<f:selectItems value="#{countryBean.continents}" var="continent" itemValue="#{continent.continentId}" itemLabel="#{continent.name}"/>
+						</p:selectOneMenu>
+						<h:outputText value="Active: " />
+						<p:selectOneMenu value="#{countryBean.lazyModel.criteria.active}">
+							<f:selectItem itemLabel="" itemValue="0"/>
+							<f:selectItem itemLabel="Active" itemValue="1"/>
+							<f:selectItem itemLabel="DeActive" itemValue="2"/>
+						</p:selectOneMenu>
+					</h:panelGrid>
+					<h:panelGrid styleClass="aui-w100" columns="2" columnClasses="aui-w15 aui-wb, aui-w85">
+						<h:outputText value="Description: " />
+						<p:inputTextarea value="#{countryBean.lazyModel.criteria.description}"/>
+					</h:panelGrid>
+				</h:panelGroup>
+				<h:panelGrid columns="2" columnClasses="aui-w15 aui-wb" styleClass="aui-w100">
+					<h:outputText />
+					<p:commandButton value="Search" process="@this pngSearch" 
+						update="dt" actionListener="#{countryBean.search}"/>
+				</h:panelGrid>
+			</p:fieldset>
+			<br/>
+			<p:dataTable var="item" value="#{countryBean.lazyModel}" paginator="true" rows="10" 
+					 styleClass="aui-w100" 
+	                 paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
+	                 rowsPerPageTemplate="5,10,15" id="dt" lazy="true" rowIndexVar="stt">
+		        <p:column headerText="Index" >
+		            <h:outputText value="#{stt + 1}" styleClass="aui-w3"/>
+		        </p:column>
+		        <p:column headerText="Name" styleClass="aui-w15" sortBy="#{item.name}">
+		            <h:outputText value="#{item.name}" />
+		        </p:column>
+		        <p:column headerText="International Name" styleClass="aui-w10" sortBy="#{item.internationalName}">
+		            <h:outputText value="#{item.internationalName}" />
+		        </p:column>
+		        <p:column headerText="Code" styleClass="aui-w10">
+		            <h:outputText value="#{item.code}" />
+		        </p:column>
+		        <p:column headerText="Continent" >
+		            <h:outputText value="#{item.continent.name}" />
+		        </p:column>
+		        <p:column headerText="Priority" styleClass="aui-w8" sortBy="#{item.priority}">
+		            <h:outputText value="#{item.priority}" />
+		        </p:column>
+		        <p:column headerText="Status" >
+		            <h:outputText value="#{item.active ? 'Active' : 'DeActive'}" />
+		        </p:column>
+		        <p:column styleClass="aui-w10">
+		            <p:menuButton value="Action" rendered="#{countryBean.hasUpdatePermission and countryBean.hasAddPermission}">
+		            	<p:menuitem value="Edit" process="@this" update=":frm:dialog" 
+		            		actionListener="#{countryBean.update}" />
+						<p:menuitem value="#{item.active ? 'DeActive' : 'Active'}" 
+							process="@this" actionListener="#{countryBean.deActivate}" 
+							update=":frm:dt" 
+							onclick="if (! confirm('Are you sure to do this action ?')) {return false;}" />
+		            </p:menuButton>
+		        </p:column>
+		    </p:dataTable>
+			
+			<p:dialog id="dialog" modal="true" widgetVar="dlgAdd" header="Add Country" width="800">
+				<p:messages id="messages" showDetail="true" closable="true"/>
+				<p:blockUI block="pngContent" widgetVar="bl"/>
+				<h:panelGroup id="pngContent">
+					<h:panelGrid columns="4" columnClasses="aui-w15 aui-wb, aui-w35, aui-w15 aui-wb" styleClass="aui-w100">
+						<h:outputText value="Name: &lt;font color='red'&gt; &lt;b&gt;(*) &lt;/b&gt; &lt;/font&gt;" escape="false"/>
+						<p:inputText value="#{countryBean.country.name}" required="true"/>
+						<h:outputText value="Continent: &lt;font color='red'&gt; &lt;b&gt;(*) &lt;/b&gt; &lt;/font&gt;" escape="false"/>
+						<p:selectOneMenu value="#{countryBean.continentId}" filter="true" filterMatchMode="contains" >
+							<f:selectItem itemValue="null" itemLabel=""/>
+							<f:selectItems value="#{countryBean.continents}" 
+								var="continent" itemValue="#{continent.continentId}" itemLabel="#{continent.name}"/>
+						</p:selectOneMenu>
+						<h:outputText value="International Name: &lt;font color='red'&gt; &lt;b&gt;(*) &lt;/b&gt; &lt;/font&gt;" escape="false"/>
+						<p:inputText value="#{countryBean.country.internationalName}" required="true"/>
+						<h:outputText value="Code: &lt;font color='red'&gt; &lt;b&gt;(*) &lt;/b&gt; &lt;/font&gt;" escape="false"/>
+						<p:inputText value="#{countryBean.country.code}" required="true"/>
+						<h:outputText value="Priority: "/>
+						<p:inputText value="#{countryBean.country.priority}" converter="integerConverter"/>
+						<h:outputText value="Active: " />
+						<p:selectOneMenu value="#{countryBean.country.active}">
+							<f:selectItem itemLabel="Active" itemValue="true"/>
+							<f:selectItem itemLabel="DeActive" itemValue="false"/>
+						</p:selectOneMenu>
+					</h:panelGrid>
+					<h:panelGrid columns="2" columnClasses="aui-w15 aui-wb, aui-w85" styleClass="aui-w100">
+						<h:outputText value="Description: "/>
+						<p:inputTextarea value="#{countryBean.country.description}"/>
+					</h:panelGrid>
+				</h:panelGroup>
+				<h:panelGrid columns="2" columnClasses="aui-w15 aui-wb, aui-w85" styleClass="aui-w100">
+					<h:outputText />
+					<h:panelGroup>
+						<p:commandButton process="@this pngContent" update="pngContent :frm:dt"
+							value="Save" actionListener="#{countryBean.save}" 
+							onstart="PF('bl').show();" oncomplete="PF('bl').hide();"/>
+						<p:commandButton process="@this" update=":frm:dialog"
+							value="Close" oncomplete="PF('dlgAdd').hide();"/>
+					</h:panelGroup>
+				</h:panelGrid>
+			</p:dialog>
+		</h:form>
+	</h:body>
+</f:view>
