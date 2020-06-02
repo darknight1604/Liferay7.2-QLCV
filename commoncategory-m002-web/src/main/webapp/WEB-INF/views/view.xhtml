@@ -75,7 +75,9 @@
 		        <p:column styleClass="aui-w10">
 		            <p:menuButton value="Action" rendered="#{continentBean.hasUpdatePermission and continentBean.hasAddPermission}">
 		            	<p:menuitem value="Edit" process="@this" update=":frm:dialog" 
-		            		actionListener="#{continentBean.update}" />
+		            		actionListener="#{continentBean.update}">
+		            		<p:resetInput target=":frm:dialog"/>
+		            	</p:menuitem>
 						<p:menuitem value="#{item.active ? 'DeActive' : 'Active'}" 
 							process="@this" actionListener="#{continentBean.deActivate}" 
 							update=":frm:dt" 
