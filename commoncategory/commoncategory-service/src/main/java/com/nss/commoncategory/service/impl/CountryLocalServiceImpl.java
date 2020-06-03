@@ -57,9 +57,9 @@ public class CountryLocalServiceImpl extends CountryLocalServiceBaseImpl {
 	
 	public Country addCountry(long userId, long continentId, String name, String internationalName, 
 			String nationality, String code, String description, int priority, int countCode, ServiceContext serContext) throws PortalException {
+		_validateCountryByCode(0, code);
 		long countryId = counterLocalService.increment(Country.class.getName());
 		Country country = createCountry(countryId);
-		
 		User user = userLocalService.fetchUser(userId);
 		String userName = StringPool.BLANK;
 		if(user != null) {

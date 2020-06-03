@@ -56,6 +56,7 @@ public class ContinentLocalServiceImpl extends ContinentLocalServiceBaseImpl {
 	 */
 	public Continent addContinent(long userId, String name, String internationalName, 
 			String code, String description, int priority, int countCode, ServiceContext serContext) throws PortalException {
+		_validateContinentByCode(0, code);
 		long continentId = counterLocalService.increment(Continent.class.getName());
 		Continent continent = createContinent(continentId);
 		User user = userLocalService.fetchUser(userId);

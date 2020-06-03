@@ -4,6 +4,7 @@ import com.liferay.faces.portal.context.LiferayPortletHelperUtil;
 import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.security.auth.PrincipalException;
 import com.liferay.portal.kernel.service.ServiceContext;
+import com.nss.commoncategory.exception.DuplicateCodeException;
 import com.nss.commoncategory.model.Continent;
 import com.nss.commoncategory.model.Country;
 import com.nss.portlet.commoncategory.m003.lazy.LazyCountryModel;
@@ -136,7 +137,9 @@ public class CountryBean {
 		} catch (Exception e) {
 			if(e instanceof PrincipalException) {
 				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, MyConstants.ERROR_PRINCIPAL, StringPool.BLANK));
-			}else {
+			} else if(e instanceof DuplicateCodeException){
+				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, MyConstants.DUPLICATE_CODE, StringPool.BLANK));
+			} else {
 				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, MyConstants.FAILED_TO_COMPLETE, StringPool.BLANK));
 			}
 			e.printStackTrace();
