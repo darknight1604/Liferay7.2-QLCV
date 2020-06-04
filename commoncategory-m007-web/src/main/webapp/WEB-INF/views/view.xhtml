@@ -1,0 +1,192 @@
+<?xml version="1.0"?>
+
+<f:view
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+>
+	<h:head>
+		<h:outputStylesheet library="css" name="main.css" />
+	</h:head>
+	<h:body>
+		<h:form id="frm">
+			<h:panelGroup>
+				<p:commandButton process="@this" update="dialog" value="#{i18n['them-moi-m007']}" 
+					actionListener="#{streetBean.openNewObject}"
+					rendered="#{streetBean.hasAddPermission}">
+					<p:resetInput target="dialog"/>
+				</p:commandButton>
+			</h:panelGroup>
+			<p:messages globalOnly="true" closable="true"/>
+			<br/>
+			<p:fieldset legend="#{i18n['tim-kiem-m007']}" toggleable="true" collapsed="true">
+				<h:panelGroup id="pngSearch">
+					<h:panelGrid styleClass="aui-w100" columns="4" columnClasses="aui-w15 aui-wb, aui-w35, aui-w15 aui-wb, aui-w35">
+						<h:outputText value="#{i18n['quoc-gia-m007']}" />
+						<p:selectOneMenu value="#{streetBean.lazyModel.criteria.countryId}" 
+							filter="true" filterMatchMode="contains" valueChangeListener="#{streetBean.selectCountry}">
+							<f:selectItem itemValue="0" itemLabel=""/>
+							<f:selectItems value="#{streetBean.countries}" var="data" itemValue="#{data.countryId}" itemLabel="#{data.name}"/>
+							<p:ajax process="@this" update="sTP sQH"/>
+						</p:selectOneMenu>
+						<h:outputText value="#{i18n['thanh-pho-m007']}" />
+						<p:selectOneMenu id="sTP" value="#{streetBean.lazyModel.criteria.cityId}" 
+							filter="true" filterMatchMode="contains" valueChangeListener="#{streetBean.selectCity}">
+							<f:selectItem itemValue="0" itemLabel=""/>
+							<f:selectItems value="#{streetBean.cities}" var="data" itemValue="#{data.cityId}" itemLabel="#{data.name}"/>
+							<p:ajax process="@this" update="sQH"/>
+						</p:selectOneMenu>
+						<h:outputText value="#{i18n['quan-huyen-m007']}" />
+						<p:selectOneMenu id="sQH" value="#{streetBean.lazyModel.criteria.districtId}" 
+							filter="true" filterMatchMode="contains" valueChangeListener="#{streetBean.selectDistrict}">
+							<f:selectItem itemValue="0" itemLabel=""/>
+							<f:selectItems value="#{streetBean.districts}" var="data" itemValue="#{data.districtId}" itemLabel="#{data.name}"/>
+							<p:ajax process="@this" update="sP"/>
+						</p:selectOneMenu>
+						<h:outputText value="#{i18n['phuong-m007']}" />
+						<p:selectOneMenu id="sP" value="#{streetBean.lazyModel.criteria.wardId}" 
+							filter="true" filterMatchMode="contains">
+							<f:selectItem itemValue="0" itemLabel=""/>
+							<f:selectItems value="#{streetBean.wards}" var="data" itemValue="#{data.wardId}" itemLabel="#{data.name}"/>
+							<p:ajax process="@this"/>
+						</p:selectOneMenu>
+						<h:outputText value="#{i18n['ten-duong-m007']}" />
+						<p:inputText value="#{streetBean.lazyModel.criteria.name}"/>
+						<h:outputText value="#{i18n['ma-m007']}" />
+						<p:inputText value="#{streetBean.lazyModel.criteria.code}"/>
+						<h:outputText value="#{i18n['hoat-dong-m007']}" />
+						<p:selectOneMenu value="#{streetBean.lazyModel.criteria.active}">
+							<f:selectItem itemLabel="" itemValue="0"/>
+							<f:selectItem itemLabel="#{i18n['hoat-dong-m005']}" itemValue="1"/>
+							<f:selectItem itemLabel="#{i18n['ngung-hoat-dong-m005']}" itemValue="2"/>
+						</p:selectOneMenu>
+					</h:panelGrid>
+					<h:panelGrid styleClass="aui-w100" columns="2" columnClasses="aui-w15 aui-wb, aui-w85">
+						<h:outputText value="#{i18n['mo-ta-m007']}" />
+						<p:inputTextarea value="#{streetBean.lazyModel.criteria.description}"/>
+					</h:panelGrid>
+				</h:panelGroup>
+				<h:panelGrid columns="2" columnClasses="aui-w15 aui-wb" styleClass="aui-w100">
+					<h:outputText />
+					<p:commandButton value="#{i18n['tim-kiem-m007']}" process="@this pngSearch" 
+						update="dt" actionListener="#{streetBean.search}"
+						oncomplete="PF('wdt').getPaginator().setPage(0);"/>
+				</h:panelGrid>
+			</p:fieldset>
+			<br/>
+			<p:dataTable var="item" value="#{streetBean.lazyModel}" paginator="true" rows="10" 
+					 styleClass="aui-w100" widgetVar="wdt" emptyMessage="#{i18n['khong-ton-tai-du-lieu-m007']}"
+	                 paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
+	                 rowsPerPageTemplate="5,10,15" id="dt" lazy="true" rowIndexVar="stt">
+		        <p:column headerText="STT" >
+		            <h:outputText value="#{stt + 1}" styleClass="aui-w3"/>
+		        </p:column>
+		        <p:column headerText="#{i18n['ten-duong-m007']}" styleClass="aui-w15" sortBy="#{item.name}">
+		            <h:outputText value="#{item.name}" />
+		        </p:column>
+		        <p:column headerText="#{i18n['ma-m007']}" styleClass="aui-w10">
+		            <h:outputText value="#{item.code}" />
+		        </p:column>
+		        <p:column headerText="#{i18n['quoc-gia-m007']}" >
+		            <h:outputText value="#{not empty item.country ? item.country.name : ''}" />
+		        </p:column>
+		        <p:column headerText="#{i18n['thanh-pho-m007']}" >
+		            <h:outputText value="#{not empty item.city ? item.city.name : ''}" />
+		        </p:column>
+		        <p:column headerText="#{i18n['quan-huyen-m007']}" >
+		            <h:outputText value="#{not empty item.district ? item.district.name : ''}" />
+		        </p:column>
+		        <p:column headerText="#{i18n['phuong-m007']}" >
+		            <h:outputText value="#{not empty item.ward ? item.ward.name : ''}" />
+		        </p:column>
+		        <p:column headerText="#{i18n['do-uu-tien-m007']}" styleClass="aui-w8" sortBy="#{item.priority}">
+		            <h:outputText value="#{item.priority}" />
+		        </p:column>
+		        <p:column headerText="#{i18n['hoat-dong-m007']}" >
+		            <h:outputText value="#{item.active ? i18n['hoat-dong-m007'] : i18n['ngung-hoat-dong-m007']}" />
+		        </p:column>
+		        <p:column styleClass="aui-w10">
+		            <p:menuButton value="#{i18n['hanh-dong-m007']}" rendered="#{streetBean.hasUpdatePermission and streetBean.hasAddPermission}">
+		            	<p:menuitem value="#{i18n['sua-m007']}" process="@this" update=":frm:dialog" 
+		            		actionListener="#{streetBean.update}">
+		            		<p:resetInput target=":frm:dialog"/>
+		            	</p:menuitem>	
+						<p:menuitem value="#{item.active ? i18n['ngung-hoat-dong-m007'] : i18n['hoat-dong-m007']}" 
+							process="@this" actionListener="#{streetBean.deActivate}" 
+							update=":frm:dt" 
+							onclick="if (! confirm('#{i18n['ban-co-muon-thuc-hien-thao-tac-nay-m007']} ? ')) {return false;}" />
+		            </p:menuButton>
+		        </p:column>
+		    </p:dataTable>
+			
+			<p:dialog id="dialog" modal="true" widgetVar="dlgAdd" header="#{i18n['thong-tin-luu-tru-m007']}" width="800">
+				<p:messages id="messages" showDetail="true" closable="true"/>
+				<p:blockUI block="pngContent" widgetVar="bl"/>
+				<h:panelGroup id="pngContent">
+					<h:panelGrid columns="4" columnClasses="aui-w15 aui-wb, aui-w35, aui-w15 aui-wb" styleClass="aui-w100">
+						<h:outputText value="#{i18n['quoc-gia-m007']} &lt;font color='red'&gt; &lt;b&gt;(*) &lt;/b&gt; &lt;/font&gt;" escape="false"/>
+						<p:selectOneMenu value="#{streetBean.countryId}" valueChangeListener="#{streetBean.selectCountry}"
+							filter="true" filterMatchMode="contains" required="true">
+							<f:selectItem itemValue="null" itemLabel=""/>
+							<f:selectItems value="#{streetBean.countries}" 
+								var="dt" itemValue="#{dt.countryId}" itemLabel="#{dt.name}"/>
+							<p:ajax process="@this" update="thanhPho"/>	
+						</p:selectOneMenu>
+						<h:outputText value="#{i18n['thanh-pho-m007']} &lt;font color='red'&gt; &lt;b&gt;(*) &lt;/b&gt; &lt;/font&gt;" escape="false"/>
+						<p:selectOneMenu id="thanhPho" value="#{streetBean.cityId}" filter="true" valueChangeListener="#{streetBean.selectCity}"
+							filterMatchMode="contains" required="true">
+							<f:selectItem itemValue="null" itemLabel=""/>
+							<f:selectItems value="#{streetBean.cities}" 
+								var="data" itemValue="#{data.cityId}" itemLabel="#{data.name}"/>
+							<p:ajax process="@this" update="quanHuyen"/>	
+						</p:selectOneMenu>
+						<h:outputText value="#{i18n['quan-huyen-m007']} &lt;font color='red'&gt; &lt;b&gt;(*) &lt;/b&gt; &lt;/font&gt;" escape="false"/>
+						<p:selectOneMenu id="quanHuyen" value="#{streetBean.districtId}" filter="true" 
+							filterMatchMode="contains" required="true" valueChangeListener="#{streetBean.selectDistrict}">
+							<f:selectItem itemValue="null" itemLabel=""/>
+							<f:selectItems value="#{streetBean.districts}" 
+								var="data" itemValue="#{data.districtId}" itemLabel="#{data.name}"/>
+							<p:ajax process="@this" update="phuong"/>	
+						</p:selectOneMenu>
+						<h:outputText value="#{i18n['phuong-m007']} &lt;font color='red'&gt; &lt;b&gt;(*) &lt;/b&gt; &lt;/font&gt;" escape="false"/>
+						<p:selectOneMenu id="phuong" value="#{streetBean.wardId}" filter="true" 
+							filterMatchMode="contains" required="true">
+							<f:selectItem itemValue="null" itemLabel=""/>
+							<f:selectItems value="#{streetBean.wards}" 
+								var="data" itemValue="#{data.wardId}" itemLabel="#{data.name}"/>
+						</p:selectOneMenu>
+						<h:outputText value="#{i18n['ten-duong-m007']} &lt;font color='red'&gt; &lt;b&gt;(*) &lt;/b&gt; &lt;/font&gt;" escape="false"/>
+						<p:inputText value="#{streetBean.street.name}" required="true"/>
+						<h:outputText value="#{i18n['ma-m007']} &lt;font color='red'&gt; &lt;b&gt;(*) &lt;/b&gt; &lt;/font&gt;" escape="false"/>
+						<p:inputText value="#{streetBean.street.code}" required="true"/>
+						<h:outputText value="#{i18n['do-uu-tien-m007']} "/>
+						<p:inputText value="#{streetBean.street.priority}" converter="integerConverter"/>
+						<h:outputText value="#{i18n['hoat-dong-m007']} " />
+						<p:selectOneMenu value="#{streetBean.street.active}">
+							<f:selectItem itemLabel="#{i18n['hoat-dong-m007']}" itemValue="true"/>
+							<f:selectItem itemLabel="#{i18n['ngung-hoat-dong-m007']}" itemValue="false"/>
+						</p:selectOneMenu>
+					</h:panelGrid>
+					<h:panelGrid columns="2" columnClasses="aui-w15 aui-wb, aui-w85" styleClass="aui-w100">
+						<h:outputText value="#{i18n['mo-ta-m007']} "/>
+						<p:inputTextarea value="#{streetBean.street.description}"/>
+					</h:panelGrid>
+				</h:panelGroup>
+				<h:panelGrid columns="2" columnClasses="aui-w15 aui-wb, aui-w85" styleClass="aui-w100" id="pngBtn">
+					<h:outputText />
+					<h:panelGroup>
+						<p:commandButton process="@this pngContent" update="pngContent pngBtn :frm:dt"
+							value="#{i18n['luu-m007']}" actionListener="#{streetBean.save}" 
+							onstart="PF('bl').show();" oncomplete="PF('bl').hide();"/>
+						<p:commandButton process="@this pngContent" update="pngContent pngBtn :frm:dt"
+							value="#{i18n['luu-them-moi-m007']}" actionListener="#{streetBean.saveNew}" 
+							onstart="PF('bl').show();" oncomplete="PF('bl').hide();" rendered="#{streetBean.street.streetId eq 0}"/>
+						<p:commandButton process="@this" update=":frm:dialog"
+							value="#{i18n['dong-m007']}" oncomplete="PF('dlgAdd').hide();"/>
+					</h:panelGroup>
+				</h:panelGrid>
+			</p:dialog>
+		</h:form>
+	</h:body>
+</f:view>

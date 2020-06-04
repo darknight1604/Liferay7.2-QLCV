@@ -4,4 +4,8 @@
 <resource-action-mapping>
 	<resource file="META-INF/resource-actions/continent.xml" />
 	<resource file="META-INF/resource-actions/country.xml" />
+	<resource file="META-INF/resource-actions/city.xml" />
+	<resource file="META-INF/resource-actions/district.xml" />
+	<resource file="META-INF/resource-actions/ward.xml" />
+	<resource file="META-INF/resource-actions/street.xml" />
 </resource-action-mapping>

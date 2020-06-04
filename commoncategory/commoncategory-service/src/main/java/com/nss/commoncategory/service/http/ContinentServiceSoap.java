@@ -133,7 +133,7 @@ public class ContinentServiceSoap {
 
 	public static com.nss.commoncategory.model.ContinentSoap addContinent(
 			long userId, String name, String internationalName, String code,
-			String description, int priority, int countCode,
+			String description, int priority, int countCode, boolean active,
 			com.liferay.portal.kernel.service.ServiceContext serContext)
 		throws RemoteException {
 
@@ -141,7 +141,7 @@ public class ContinentServiceSoap {
 			com.nss.commoncategory.model.Continent returnValue =
 				ContinentServiceUtil.addContinent(
 					userId, name, internationalName, code, description,
-					priority, countCode, serContext);
+					priority, countCode, active, serContext);
 
 			return com.nss.commoncategory.model.ContinentSoap.toSoapModel(
 				returnValue);
@@ -155,14 +155,15 @@ public class ContinentServiceSoap {
 
 	public static com.nss.commoncategory.model.ContinentSoap update(
 			long continentId, String name, String internationalName,
-			String code, String description, int priority, int countCode)
+			String code, String description, int priority, int countCode,
+			boolean active)
 		throws RemoteException {
 
 		try {
 			com.nss.commoncategory.model.Continent returnValue =
 				ContinentServiceUtil.update(
 					continentId, name, internationalName, code, description,
-					priority, countCode);
+					priority, countCode, active);
 
 			return com.nss.commoncategory.model.ContinentSoap.toSoapModel(
 				returnValue);

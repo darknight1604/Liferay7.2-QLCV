@@ -75,7 +75,7 @@ public interface CountryLocalService
 	public Country addCountry(
 			long userId, long continentId, String name,
 			String internationalName, String nationality, String code,
-			String description, int priority, int countCode,
+			String description, int priority, int countCode, boolean active,
 			ServiceContext serContext)
 		throws PortalException;
 
@@ -265,7 +265,7 @@ public interface CountryLocalService
 	public Country updateCountry(
 			long countryId, long continentId, String name,
 			String internationalName, String nationality, String code,
-			String description, int priority, int countCode)
+			String description, int priority, int countCode, boolean active)
 		throws PortalException;
 
 }

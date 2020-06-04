@@ -9,6 +9,7 @@ import com.nss.commoncategory.model.Continent;
 import com.nss.portlet.commoncategory.m002.lazy.LazyContinentModel;
 import com.nss.portlet.commoncategory.service.ContinentLocalServiceTracker;
 import com.nss.portlet.commoncategory.service.ContinentServiceTracker;
+import com.nss.portlet.commoncategory.util.LanguageUtil_m002;
 import com.nss.portlet.commoncategory.util.constants.MyConstants;
 import java.util.Date;
 import javax.annotation.PostConstruct;
@@ -45,10 +46,6 @@ public class ContinentBean {
 	private boolean hasAddPermission;
 	
 	private boolean hasUpdatePermission;
-	
-//	private FacesContext context = FacesContext.getCurrentInstance();
-	
-//	private LiferayFacesContext context = LiferayFacesContext.getInstance();
 	
 	@PostConstruct
 	public void init() {
@@ -97,13 +94,13 @@ public class ContinentBean {
 	}
 	
 	public void openNewObject(ActionEvent event) {
-		
-		if(continentLocalServiceTracker.getService() != null) {
-			continent = continentLocalServiceTracker.getService().createContinent(0L);
-			continent.setActive(true);
-			continent.setPriority(100);
-		} 
+		_createNewObject();
 		PrimeFaces.current().executeScript("PF('dlgAdd').show();"); 
+	}
+	
+	public void saveNew(ActionEvent event) {
+		save(event);
+		_createNewObject();
 	}
 	
 	public void save(ActionEvent event) { 
@@ -111,26 +108,34 @@ public class ContinentBean {
 			if(continent.getContinentId() > 0) {
 				continent = continentServiceTracker.getService().update(continent.getContinentId(), 
 						continent.getName(), continent.getInternationalName(), continent.getCode(), 
-						continent.getDescription(), continent.getPriority(), continent.getCountCode());
+						continent.getDescription(), continent.getPriority(), continent.getCountCode(), continent.isActive());
 				lazyModel.setRowCount(MyConstants.REFRESH_DATA);
 			}else {
 				continent = continentServiceTracker.getService().addContinent(userId, continent.getName(), 
 						continent.getInternationalName(), continent.getCode(), 
-						continent.getDescription(), continent.getPriority(), continent.getCountCode(), serviceContext);
+						continent.getDescription(), continent.getPriority(), continent.getCountCode(), continent.isActive(), serviceContext);
 				lazyModel.setRowCount(MyConstants.REFRESH_PAGE);
 			}
-			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, MyConstants.PROCESSED_SUCCESSFULLY, StringPool.BLANK));
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, LanguageUtil_m002.getString(MyConstants.PROCESSED_SUCCESSFULLY), StringPool.BLANK));
 		} catch (Exception e) {
 			if(e instanceof PrincipalException) {
-				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, MyConstants.ERROR_PRINCIPAL, StringPool.BLANK));
-			}else if(e instanceof DuplicateCodeException){
-				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, MyConstants.DUPLICATE_CODE, StringPool.BLANK));
+				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, LanguageUtil_m002.getString(MyConstants.ERROR_PRINCIPAL), StringPool.BLANK));
+			} else if(e instanceof DuplicateCodeException){
+				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, LanguageUtil_m002.getString(MyConstants.DUPLICATE_CODE), StringPool.BLANK));
 			} else {
-				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, MyConstants.FAILED_TO_COMPLETE, StringPool.BLANK));
+				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, LanguageUtil_m002.getString(MyConstants.FAILED_TO_COMPLETE), StringPool.BLANK));
 			}
 			e.printStackTrace();
 		}
 		PrimeFaces.current().ajax().update(":frm:messages");
+	}
+	
+	private void _createNewObject() {
+		if(continentLocalServiceTracker.getService() != null) {
+			continent = continentLocalServiceTracker.getService().createContinent(0L);
+			continent.setActive(true);
+			continent.setPriority(100);
+		} 
 	}
 	
 	public void search(ActionEvent event) {

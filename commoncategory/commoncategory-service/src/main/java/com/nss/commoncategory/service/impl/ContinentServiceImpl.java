@@ -76,21 +76,23 @@ public class ContinentServiceImpl extends ContinentServiceBaseImpl {
 	}
 	
 	public Continent addContinent(long userId, String name, String internationalName, 
-			String code, String description, int priority, int countCode, ServiceContext serContext) throws PortalException {
+			String code, String description, int priority, int countCode, boolean active, ServiceContext serContext) throws PortalException {
 		
 		_portletResourcePermission.check(getPermissionChecker(), serContext.getScopeGroupId(),
 		        MyActionKeys.ADD_CONTINENT);
 		
-		return continentLocalService.addContinent(userId, name, internationalName, code, description, priority, countCode, serContext);
+		return continentLocalService.addContinent(userId, name, internationalName, code, description, 
+				priority, countCode, active, serContext);
 	}
 	
 	public Continent update(long continentId, String name, String internationalName, 
-			String code, String description, int priority, int countCode) throws PortalException {
+			String code, String description, int priority, int countCode, boolean active) throws PortalException {
 		Continent continent = continentLocalService.fetchContinent(continentId);
 		_portletResourcePermission.check(getPermissionChecker(), continent.getGroupId(),
 		        MyActionKeys.UPDATE);
 		
-		return continentLocalService.update(continentId, name, internationalName, code, description, priority, countCode);
+		return continentLocalService.update(continentId, name, internationalName, code, 
+				description, priority, countCode, active);
 	}
 	
 }

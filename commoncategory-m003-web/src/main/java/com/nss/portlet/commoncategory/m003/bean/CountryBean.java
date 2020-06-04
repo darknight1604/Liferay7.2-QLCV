@@ -11,6 +11,7 @@ import com.nss.portlet.commoncategory.m003.lazy.LazyCountryModel;
 import com.nss.portlet.commoncategory.service.ContinentLocalServiceTracker;
 import com.nss.portlet.commoncategory.service.CountryLocalServiceTracker;
 import com.nss.portlet.commoncategory.service.CountryServiceTracker;
+import com.nss.portlet.commoncategory.util.LanguageUtil_m003;
 import com.nss.portlet.commoncategory.util.constants.MyConstants;
 import java.util.Date;
 import java.util.List;
@@ -112,39 +113,49 @@ public class CountryBean {
 	}
 	
 	public void openNewObject(ActionEvent event) {
-		
-		if(countryLocalServiceTracker.getService() != null) {
-			country = countryLocalServiceTracker.getService().createCountry(0L);
-			country.setActive(true);
-			country.setPriority(100);
-			continentId = null;
-		} 
+		_createNewObject();
 		PrimeFaces.current().executeScript("PF('dlgAdd').show();"); 
+	}
+	
+	public void saveNew(ActionEvent event) { 
+		save(event);
+		_createNewObject();
 	}
 	
 	public void save(ActionEvent event) { 
 		try {
 			if(country.getCountryId() > 0) {
 				country = countryServiceTracker.getService().updateCountry(country.getCountryId(), continentId, country.getName(), country.getInternationalName(), 
-						country.getNationality(), country.getCode(), country.getDescription(), country.getPriority(), country.getCountCode());
+						country.getNationality(), country.getCode(), country.getDescription(), 
+						country.getPriority(), country.getCountCode(), country.isActive());
 				lazyModel.setRowCount(MyConstants.REFRESH_DATA);
 			}else {
 				country = countryServiceTracker.getService().addCountry(userId, continentId, country.getName(), country.getInternationalName(), 
-						country.getNationality(), country.getCode(), country.getDescription(), country.getPriority(), country.getCountCode(), serviceContext);
+						country.getNationality(), country.getCode(), country.getDescription(), 
+						country.getPriority(), country.getCountCode(), country.isActive(), serviceContext);
 				lazyModel.setRowCount(MyConstants.REFRESH_PAGE);
 			}
-			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, MyConstants.PROCESSED_SUCCESSFULLY, StringPool.BLANK));
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, LanguageUtil_m003.getString(MyConstants.PROCESSED_SUCCESSFULLY), StringPool.BLANK));
 		} catch (Exception e) {
 			if(e instanceof PrincipalException) {
-				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, MyConstants.ERROR_PRINCIPAL, StringPool.BLANK));
+				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, LanguageUtil_m003.getString(MyConstants.ERROR_PRINCIPAL), StringPool.BLANK));
 			} else if(e instanceof DuplicateCodeException){
-				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, MyConstants.DUPLICATE_CODE, StringPool.BLANK));
+				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, LanguageUtil_m003.getString(MyConstants.DUPLICATE_CODE), StringPool.BLANK));
 			} else {
-				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, MyConstants.FAILED_TO_COMPLETE, StringPool.BLANK));
+				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, LanguageUtil_m003.getString(MyConstants.FAILED_TO_COMPLETE), StringPool.BLANK));
 			}
 			e.printStackTrace();
 		}
 		PrimeFaces.current().ajax().update(":frm:messages");
+	}
+	
+	private void _createNewObject() {
+		if(countryLocalServiceTracker.getService() != null) {
+			country = countryLocalServiceTracker.getService().createCountry(0L);
+			country.setActive(true);
+			country.setPriority(100);
+			continentId = null;
+		}
 	}
 	
 	public void search(ActionEvent event) {

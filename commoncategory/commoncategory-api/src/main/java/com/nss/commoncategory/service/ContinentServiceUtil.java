@@ -41,13 +41,13 @@ public class ContinentServiceUtil {
 	 */
 	public static com.nss.commoncategory.model.Continent addContinent(
 			long userId, String name, String internationalName, String code,
-			String description, int priority, int countCode,
+			String description, int priority, int countCode, boolean active,
 			com.liferay.portal.kernel.service.ServiceContext serContext)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return getService().addContinent(
 			userId, name, internationalName, code, description, priority,
-			countCode, serContext);
+			countCode, active, serContext);
 	}
 
 	public static
@@ -87,12 +87,13 @@ public class ContinentServiceUtil {
 
 	public static com.nss.commoncategory.model.Continent update(
 			long continentId, String name, String internationalName,
-			String code, String description, int priority, int countCode)
+			String code, String description, int priority, int countCode,
+			boolean active)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return getService().update(
 			continentId, name, internationalName, code, description, priority,
-			countCode);
+			countCode, active);
 	}
 
 	public static ContinentService getService() {

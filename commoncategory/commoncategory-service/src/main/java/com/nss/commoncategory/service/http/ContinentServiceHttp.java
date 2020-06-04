@@ -212,7 +212,7 @@ public class ContinentServiceHttp {
 	public static com.nss.commoncategory.model.Continent addContinent(
 			HttpPrincipal httpPrincipal, long userId, String name,
 			String internationalName, String code, String description,
-			int priority, int countCode,
+			int priority, int countCode, boolean active,
 			com.liferay.portal.kernel.service.ServiceContext serContext)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
@@ -223,7 +223,7 @@ public class ContinentServiceHttp {
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, userId, name, internationalName, code, description,
-				priority, countCode, serContext);
+				priority, countCode, active, serContext);
 
 			Object returnObj = null;
 
@@ -254,7 +254,7 @@ public class ContinentServiceHttp {
 	public static com.nss.commoncategory.model.Continent update(
 			HttpPrincipal httpPrincipal, long continentId, String name,
 			String internationalName, String code, String description,
-			int priority, int countCode)
+			int priority, int countCode, boolean active)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		try {
@@ -263,7 +263,7 @@ public class ContinentServiceHttp {
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, continentId, name, internationalName, code,
-				description, priority, countCode);
+				description, priority, countCode, active);
 
 			Object returnObj = null;
 
@@ -303,12 +303,12 @@ public class ContinentServiceHttp {
 		new Class[] {long.class};
 	private static final Class<?>[] _addContinentParameterTypes4 = new Class[] {
 		long.class, String.class, String.class, String.class, String.class,
-		int.class, int.class,
+		int.class, int.class, boolean.class,
 		com.liferay.portal.kernel.service.ServiceContext.class
 	};
 	private static final Class<?>[] _updateParameterTypes5 = new Class[] {
 		long.class, String.class, String.class, String.class, String.class,
-		int.class, int.class
+		int.class, int.class, boolean.class
 	};
 
 }

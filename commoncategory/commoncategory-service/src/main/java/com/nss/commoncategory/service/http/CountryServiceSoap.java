@@ -114,7 +114,7 @@ public class CountryServiceSoap {
 	public static com.nss.commoncategory.model.CountrySoap addCountry(
 			long userId, long continentId, String name,
 			String internationalName, String nationality, String code,
-			String description, int priority, int countCode,
+			String description, int priority, int countCode, boolean active,
 			com.liferay.portal.kernel.service.ServiceContext serContext)
 		throws RemoteException {
 
@@ -122,7 +122,7 @@ public class CountryServiceSoap {
 			com.nss.commoncategory.model.Country returnValue =
 				CountryServiceUtil.addCountry(
 					userId, continentId, name, internationalName, nationality,
-					code, description, priority, countCode, serContext);
+					code, description, priority, countCode, active, serContext);
 
 			return com.nss.commoncategory.model.CountrySoap.toSoapModel(
 				returnValue);
@@ -137,14 +137,15 @@ public class CountryServiceSoap {
 	public static com.nss.commoncategory.model.CountrySoap updateCountry(
 			long countryId, long continentId, String name,
 			String internationalName, String nationality, String code,
-			String description, int priority, int countCode)
+			String description, int priority, int countCode, boolean active)
 		throws RemoteException {
 
 		try {
 			com.nss.commoncategory.model.Country returnValue =
 				CountryServiceUtil.updateCountry(
 					countryId, continentId, name, internationalName,
-					nationality, code, description, priority, countCode);
+					nationality, code, description, priority, countCode,
+					active);
 
 			return com.nss.commoncategory.model.CountrySoap.toSoapModel(
 				returnValue);

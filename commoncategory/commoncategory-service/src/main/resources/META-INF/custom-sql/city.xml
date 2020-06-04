@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<custom-sql>
+	<sql id="com.nss.commoncategory.service.persistence.CityFinder.countByBaseSearch">
+		<![CDATA[
+			SELECT COUNT(nss_platform_city.*) AS COUNT_VALUE
+			FROM nss_platform_city
+			WHERE true
+			AND companyId = ?
+			AND groupId = ?
+			AND active_ = ?
+			AND countryId = ?
+			AND
+				(	
+					(LOWER(name) LIKE ? [$AND_OR_NULL_CHECK$]) [$AND_OR_CONNECTOR$]
+					(LOWER(code_) LIKE ? [$AND_OR_NULL_CHECK$]) [$AND_OR_CONNECTOR$]
+					(LOWER(description) LIKE ? [$AND_OR_NULL_CHECK$])
+				)
+				
+		]]>
+	</sql>
+	<sql id="com.nss.commoncategory.service.persistence.CityFinder.findByBaseSearch">
+		<![CDATA[
+			SELECT nss_platform_city.*
+			FROM nss_platform_city
+			WHERE true
+			AND companyId = ?
+			AND groupId = ?
+			AND active_ = ?
+			AND countryId = ?
+			AND
+				(	
+					(LOWER(name) LIKE ? [$AND_OR_NULL_CHECK$]) [$AND_OR_CONNECTOR$]
+					(LOWER(code_) LIKE ? [$AND_OR_NULL_CHECK$]) [$AND_OR_CONNECTOR$]
+					(LOWER(description) LIKE ? [$AND_OR_NULL_CHECK$])
+				)
+		]]>
+	</sql>
+</custom-sql>

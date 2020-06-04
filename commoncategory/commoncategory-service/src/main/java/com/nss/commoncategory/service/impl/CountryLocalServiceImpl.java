@@ -56,7 +56,7 @@ public class CountryLocalServiceImpl extends CountryLocalServiceBaseImpl {
 	 */
 	
 	public Country addCountry(long userId, long continentId, String name, String internationalName, 
-			String nationality, String code, String description, int priority, int countCode, ServiceContext serContext) throws PortalException {
+			String nationality, String code, String description, int priority, int countCode, boolean active, ServiceContext serContext) throws PortalException {
 		_validateCountryByCode(0, code);
 		long countryId = counterLocalService.increment(Country.class.getName());
 		Country country = createCountry(countryId);
@@ -78,7 +78,7 @@ public class CountryLocalServiceImpl extends CountryLocalServiceBaseImpl {
 		country.setCode(code);
 		country.setDescription(description);
 		country.setPriority(priority);
-		country.setActive(true);
+		country.setActive(active);
 		country.setCountCode(countCode);
 		country.setNationality(nationality);
 		country.setContinentId(continentId);
@@ -89,7 +89,7 @@ public class CountryLocalServiceImpl extends CountryLocalServiceBaseImpl {
 	}
 	
 	public Country updateCountry(long countryId, long continentId, String name, String internationalName, 
-			String nationality, String code, String description, int priority, int countCode) throws PortalException {
+			String nationality, String code, String description, int priority, int countCode, boolean active) throws PortalException {
 		Country country = fetchCountry(countryId);
 		
 		_validateCountryByCode(countryId, code);
@@ -100,7 +100,7 @@ public class CountryLocalServiceImpl extends CountryLocalServiceBaseImpl {
 		country.setCode(code);
 		country.setDescription(description);
 		country.setPriority(priority);
-		country.setActive(true);
+		country.setActive(active);
 		country.setCountCode(countCode);
 		country.setNationality(nationality);
 		country.setContinentId(continentId);

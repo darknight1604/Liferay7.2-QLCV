@@ -74,7 +74,7 @@ public interface ContinentLocalService
 
 	public Continent addContinent(
 			long userId, String name, String internationalName, String code,
-			String description, int priority, int countCode,
+			String description, int priority, int countCode, boolean active,
 			ServiceContext serContext)
 		throws PortalException;
 
@@ -252,7 +252,8 @@ public interface ContinentLocalService
 
 	public Continent update(
 			long continentId, String name, String internationalName,
-			String code, String description, int priority, int countCode)
+			String code, String description, int priority, int countCode,
+			boolean active)
 		throws PortalException;
 
 	/**

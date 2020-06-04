@@ -3,4 +3,8 @@
 <custom-sql>
 	<sql file="META-INF/custom-sql/continent.xml" />
 	<sql file="META-INF/custom-sql/country.xml" />
+	<sql file="META-INF/custom-sql/city.xml" />
+	<sql file="META-INF/custom-sql/district.xml" />
+	<sql file="META-INF/custom-sql/ward.xml" />
+	<sql file="META-INF/custom-sql/street.xml" />
 </custom-sql>

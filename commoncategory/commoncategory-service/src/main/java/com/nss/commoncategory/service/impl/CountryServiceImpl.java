@@ -68,17 +68,19 @@ public class CountryServiceImpl extends CountryServiceBaseImpl {
 	}
 	
 	public Country addCountry(long userId, long continentId, String name, String internationalName, 
-			String nationality, String code, String description, int priority, int countCode, ServiceContext serContext) throws PortalException {
+			String nationality, String code, String description, int priority, int countCode, boolean active, ServiceContext serContext) throws PortalException {
 		_portletResourcePermission.check(getPermissionChecker(), serContext.getScopeGroupId(),
 		        MyActionKeys.ADD_COUNTRY);
-		return countryLocalService.addCountry(userId, continentId, name, internationalName, nationality, code, description, priority, countCode, serContext);
+		return countryLocalService.addCountry(userId, continentId, name, internationalName, nationality, 
+				code, description, priority, countCode, active, serContext);
 	}
 	
 	public Country updateCountry(long countryId, long continentId, String name, String internationalName, 
-			String nationality, String code, String description, int priority, int countCode) throws PortalException {
+			String nationality, String code, String description, int priority, int countCode, boolean active) throws PortalException {
 		Country country = countryLocalService.fetchCountry(countryId);
 		_portletResourcePermission.check(getPermissionChecker(), country.getGroupId(),
 		        MyActionKeys.UPDATE);
-		return countryLocalService.updateCountry(countryId, continentId, name, internationalName, nationality, code, description, priority, countCode);
+		return countryLocalService.updateCountry(countryId, continentId, name, internationalName, 
+				nationality, code, description, priority, countCode, active);
 	}
 }

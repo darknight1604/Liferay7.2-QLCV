@@ -1,3 +1,20 @@
+create table nss_platform_city (
+	cityId bigint not null primary key,
+	companyId bigint,
+	groupId bigint,
+	userId bigint,
+	userName varchar(75) null,
+	createDate datetime(6) null,
+	modifiedDate datetime(6) null,
+	name varchar(255) null,
+	code_ varchar(75) null,
+	countryId bigint,
+	description longtext null,
+	priority integer,
+	active_ tinyint,
+	countCode integer
+) engine InnoDB;
+
 create table nss_platform_continent (
 	continentId bigint not null primary key,
 	companyId bigint,
@@ -28,6 +45,63 @@ create table nss_platform_country (
 	internationalName varchar(255) null,
 	nationality varchar(255) null,
 	code_ varchar(75) null,
+	description longtext null,
+	priority integer,
+	active_ tinyint,
+	countCode integer
+) engine InnoDB;
+
+create table nss_platform_district (
+	districtId bigint not null primary key,
+	companyId bigint,
+	groupId bigint,
+	userId bigint,
+	userName varchar(75) null,
+	createDate datetime(6) null,
+	modifiedDate datetime(6) null,
+	name varchar(255) null,
+	code_ varchar(75) null,
+	countryId bigint,
+	cityId bigint,
+	description longtext null,
+	priority integer,
+	active_ tinyint,
+	countCode integer
+) engine InnoDB;
+
+create table nss_platform_street (
+	streetId bigint not null primary key,
+	groupId bigint,
+	companyId bigint,
+	userId bigint,
+	userName varchar(75) null,
+	createDate datetime(6) null,
+	modifiedDate datetime(6) null,
+	name varchar(255) null,
+	code_ varchar(75) null,
+	countryId bigint,
+	cityId bigint,
+	districtId bigint,
+	wardId bigint,
+	description longtext null,
+	priority integer,
+	active_ tinyint,
+	countCode integer
+) engine InnoDB;
+
+create table nss_platform_ward (
+	wardId bigint not null primary key,
+	companyId bigint,
+	groupId bigint,
+	userId bigint,
+	userName varchar(75) null,
+	createDate datetime(6) null,
+	modifiedDate datetime(6) null,
+	name varchar(255) null,
+	code_ varchar(75) null,
+	countryId bigint,
+	cityId bigint,
+	districtId bigint,
 	description longtext null,
 	priority integer,
 	active_ tinyint,

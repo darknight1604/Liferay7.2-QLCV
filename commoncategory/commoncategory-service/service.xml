@@ -69,6 +69,171 @@
 			<finder-column name="name" />
 		</finder>
 	</entity>
+	<entity name="City" local-service="true" remote-service="true" table="nss_platform_city">
+		<!-- PK fields -->
+		<column name="cityId" type="long" primary="true" />
+		<!--Audit fields -->
+		<column name="companyId" type="long" />
+		<column name="groupId" type="long" />
+		<column name="userId" type="long" json-enabled="false"/>
+		<column name="userName" type="String" json-enabled="false"/>
+		<column name="createDate" type="Date" />
+		<column name="modifiedDate" type="Date" />
+		<!-- Other fields -->
+		<column name="name" type="String" />
+		<column name="code" type="String" />
+		<column name="countryId" type="long" />
+		<column name="description" type="String" />
+		<column name="priority" type="int" />
+		<column name="active" type="boolean" />
+		<column name="countCode" type="int" />
+		<order>
+			<order-column name="priority" order-by="asc" />
+		</order>
+		<!-- Finder methods -->
+		<finder name="Active" return-type="Collection">
+			<finder-column name="active" />
+		</finder>
+		<finder name="Code" return-type="City">
+			<finder-column name="code" />
+		</finder>
+		<finder name="CountryId_Active" return-type="Collection">
+			<finder-column name="countryId" />
+			<finder-column name="active" />
+		</finder>
+		<finder name="CountryId_Name" return-type="City">
+			<finder-column name="countryId" />
+			<finder-column name="name" />
+		</finder>
+	</entity>
+
+	<entity name="District" local-service="true" remote-service="true" table="nss_platform_district">
+		<!-- PK fields -->
+		<column name="districtId" type="long" primary="true" />
+		<!--Audit fields -->
+		<column name="companyId" type="long" />
+		<column name="groupId" type="long" />
+		<column name="userId" type="long" json-enabled="false"/>
+		<column name="userName" type="String" json-enabled="false"/>
+		<column name="createDate" type="Date" />
+		<column name="modifiedDate" type="Date" />
+		<!-- Other fields -->
+		<column name="name" type="String" />
+		<column name="code" type="String" />
+		<column name="countryId" type="long" />
+		<column name="cityId" type="long" />
+		<column name="description" type="String" />
+		<column name="priority" type="int" />
+		<column name="active" type="boolean" />
+		<column name="countCode" type="int" />
+		<order>
+			<order-column name="priority" order-by="asc" />
+		</order>
+		<!-- Finder methods -->
+		<finder name="Active" return-type="Collection">
+			<finder-column name="active" />
+		</finder>
+		<finder name="CityId_Active" return-type="Collection">
+			<finder-column name="cityId" />
+			<finder-column name="active" />
+		</finder>
+		<finder name="CityId_Name" return-type="District">
+			<finder-column name="cityId" />
+			<finder-column name="name" />
+		</finder>
+		<finder name="Code" return-type="District">
+			<finder-column name="code" />
+		</finder>
+	</entity>
+	<entity name="Ward" local-service="true" remote-service="true" table="nss_platform_ward">
+		<!-- PK fields -->
+		<column name="wardId" type="long" primary="true" />
+		<!--Audit fields -->
+		<column name="companyId" type="long" />
+		<column name="groupId" type="long" />
+		<column name="userId" type="long" json-enabled="false"/>
+		<column name="userName" type="String" json-enabled="false"/>
+		<column name="createDate" type="Date" />
+		<column name="modifiedDate" type="Date" />
+		<!-- Other fields -->
+		<column name="name" type="String" />
+		<column name="code" type="String" />
+		<column name="countryId" type="long" />
+		<column name="cityId" type="long" />
+		<column name="districtId" type="long" />
+		<column name="description" type="String" />
+		<column name="priority" type="int" />
+		<column name="active" type="boolean" />
+		<column name="countCode" type="int" />
+		<order>
+			<order-column name="priority" order-by="asc" />
+		</order>
+		<!-- Finder methods -->
+		<finder name="Active" return-type="Collection">
+			<finder-column name="active" />
+		</finder>
+		<finder name="DistrictId_Active" return-type="Collection">
+			<finder-column name="districtId" />
+			<finder-column name="active" />
+		</finder>
+		<finder name="DistrictId_Name" return-type="Ward">
+			<finder-column name="districtId" />
+			<finder-column name="name" />
+		</finder>
+		<finder name="Code" return-type="Ward">
+			<finder-column name="code" />
+		</finder>
+	</entity>
+
+	<entity name="Street" local-service="true" remote-service="true" table="nss_platform_street">
+		<!-- PK fields -->
+		<column name="streetId" type="long" primary="true" />
+		<!--Group instance -->
+		<column name="groupId" type="long" />
+		<!--Audit fields -->
+		<column name="companyId" type="long" />
+		<column name="userId" type="long" json-enabled="false"/>
+		<column name="userName" type="String" json-enabled="false"/>
+		<column name="createDate" type="Date" />
+		<column name="modifiedDate" type="Date" />
+		<!-- Other fields -->
+		<column name="name" type="String" />
+		<column name="code" type="String" />
+		<column name="countryId" type="long" />
+		<column name="cityId" type="long" />
+		<column name="districtId" type="long" />
+		<column name="wardId" type="long" />
+		<column name="description" type="String" />
+		<column name="priority" type="int" />
+		<column name="active" type="boolean" />
+		<column name="countCode" type="int" />
+		<order>
+			<order-column name="priority" order-by="asc" />
+		</order>
+		<!-- Finder methods -->
+		<finder name="Active" return-type="Collection">
+			<finder-column name="active" />
+		</finder>
+		<finder name="CityId_Active" return-type="Collection">
+			<finder-column name="cityId" />
+			<finder-column name="active" />
+		</finder>
+		<finder name="DistrictId_Active" return-type="Collection">
+			<finder-column name="districtId" />
+			<finder-column name="active" />
+		</finder>
+		<finder name="WardId_Active" return-type="Collection">
+			<finder-column name="wardId" />
+			<finder-column name="active" />
+		</finder>
+		<finder name="WardId_Name" return-type="Street">
+			<finder-column name="wardId" />
+			<finder-column name="name" />
+		</finder>
+		<finder name="Code" return-type="Street">
+			<finder-column name="code" />
+		</finder>
+	</entity>
 	<exceptions>
 		<exception>EmptyCode</exception>
 		<exception>DuplicateCode</exception>

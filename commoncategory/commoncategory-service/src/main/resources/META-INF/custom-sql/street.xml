@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<custom-sql>
+	<sql id="com.nss.commoncategory.service.persistence.StreetFinder.countByBaseSearch">
+		<![CDATA[
+			SELECT COUNT(nss_platform_street.*) AS COUNT_VALUE
+			FROM nss_platform_street
+			WHERE true
+			AND companyId = ?
+			AND groupId = ?
+			AND active_ = ?
+			AND countryId = ?
+			AND cityId = ?
+			AND districtId = ?
+			AND wardId = ?
+			AND
+				(	
+					(LOWER(name) LIKE ? [$AND_OR_NULL_CHECK$]) [$AND_OR_CONNECTOR$]
+					(LOWER(code_) LIKE ? [$AND_OR_NULL_CHECK$]) [$AND_OR_CONNECTOR$]
+					(LOWER(description) LIKE ? [$AND_OR_NULL_CHECK$])
+				)
+				
+		]]>
+	</sql>
+	<sql id="com.nss.commoncategory.service.persistence.StreetFinder.findByBaseSearch">
+		<![CDATA[
+			SELECT nss_platform_street.*
+			FROM nss_platform_street
+			WHERE true
+			AND companyId = ?
+			AND groupId = ?
+			AND active_ = ?
+			AND countryId = ?
+			AND cityId = ?
+			AND districtId = ?
+			AND wardId = ?
+			AND
+				(	
+					(LOWER(name) LIKE ? [$AND_OR_NULL_CHECK$]) [$AND_OR_CONNECTOR$]
+					(LOWER(code_) LIKE ? [$AND_OR_NULL_CHECK$]) [$AND_OR_CONNECTOR$]
+					(LOWER(description) LIKE ? [$AND_OR_NULL_CHECK$])
+				)
+		]]>
+	</sql>
+</custom-sql>

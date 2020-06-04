@@ -12,7 +12,7 @@
 	<h:body>
 		<h:form id="frm">
 			<h:panelGroup>
-				<p:commandButton process="@this" update="dialog" value="Add Country" 
+				<p:commandButton process="@this" update="dialog" value="#{i18n['them-moi-m003']}" 
 					actionListener="#{countryBean.openNewObject}"
 					rendered="#{countryBean.hasAddPermission}">
 					<p:resetInput target="dialog"/>
@@ -20,116 +20,120 @@
 			</h:panelGroup>
 			<p:messages globalOnly="true" closable="true"/>
 			<br/>
-			<p:fieldset legend="#{i18n['search']}" toggleable="true" collapsed="true">
+			<p:fieldset legend="#{i18n['tim-kiem-m003']}" toggleable="true" collapsed="true">
 				<h:panelGroup id="pngSearch">
 					<h:panelGrid styleClass="aui-w100" columns="4" columnClasses="aui-w15 aui-wb, aui-w35, aui-w15 aui-wb, aui-w35">
-						<h:outputText value="Name: " />
+						<h:outputText value="#{i18n['ten-quoc-gia-m003']}" />
 						<p:inputText value="#{countryBean.lazyModel.criteria.name}"/>
-						<h:outputText value="International Name: " />
+						<h:outputText value="#{i18n['ten-quoc-te-m003']}" />
 						<p:inputText value="#{countryBean.lazyModel.criteria.internationalName}"/>
-						<h:outputText value="Code: " />
+						<h:outputText value="#{i18n['ma-m003']}" />
 						<p:inputText value="#{countryBean.lazyModel.criteria.code}"/>
-						<h:outputText value="Continent: " />
+						<h:outputText value="#{i18n['chau-luc-m003']}" />
 						<p:selectOneMenu value="#{countryBean.lazyModel.criteria.continentId}" filter="true" filterMatchMode="contains">
 							<f:selectItem itemValue="0" itemLabel=""/>
 							<f:selectItems value="#{countryBean.continents}" var="continent" itemValue="#{continent.continentId}" itemLabel="#{continent.name}"/>
 						</p:selectOneMenu>
-						<h:outputText value="Active: " />
+						<h:outputText value="#{i18n['hoat-dong-m003']}" />
 						<p:selectOneMenu value="#{countryBean.lazyModel.criteria.active}">
 							<f:selectItem itemLabel="" itemValue="0"/>
-							<f:selectItem itemLabel="Active" itemValue="1"/>
-							<f:selectItem itemLabel="DeActive" itemValue="2"/>
+							<f:selectItem itemLabel="#{i18n['hoat-dong-m003']}" itemValue="1"/>
+							<f:selectItem itemLabel="#{i18n['ngung-hoat-dong-m003']}" itemValue="2"/>
 						</p:selectOneMenu>
 					</h:panelGrid>
 					<h:panelGrid styleClass="aui-w100" columns="2" columnClasses="aui-w15 aui-wb, aui-w85">
-						<h:outputText value="Description: " />
+						<h:outputText value="#{i18n['mo-ta-m003']}" />
 						<p:inputTextarea value="#{countryBean.lazyModel.criteria.description}"/>
 					</h:panelGrid>
 				</h:panelGroup>
 				<h:panelGrid columns="2" columnClasses="aui-w15 aui-wb" styleClass="aui-w100">
 					<h:outputText />
-					<p:commandButton value="Search" process="@this pngSearch" 
-						update="dt" actionListener="#{countryBean.search}"/>
+					<p:commandButton value="#{i18n['tim-kiem-m003']}" process="@this pngSearch" 
+						update="dt" actionListener="#{countryBean.search}"
+						oncomplete="PF('wdt').getPaginator().setPage(0);"/>
 				</h:panelGrid>
 			</p:fieldset>
 			<br/>
 			<p:dataTable var="item" value="#{countryBean.lazyModel}" paginator="true" rows="10" 
-					 styleClass="aui-w100" 
+					 styleClass="aui-w100" widgetVar="wdt" emptyMessage="#{i18n['khong-ton-tai-du-lieu-m003']}"
 	                 paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
 	                 rowsPerPageTemplate="5,10,15" id="dt" lazy="true" rowIndexVar="stt">
-		        <p:column headerText="Index" >
+		        <p:column headerText="STT" >
 		            <h:outputText value="#{stt + 1}" styleClass="aui-w3"/>
 		        </p:column>
-		        <p:column headerText="Name" styleClass="aui-w15" sortBy="#{item.name}">
+		        <p:column headerText="#{i18n['ten-quoc-gia-m003']}" styleClass="aui-w15" sortBy="#{item.name}">
 		            <h:outputText value="#{item.name}" />
 		        </p:column>
-		        <p:column headerText="International Name" styleClass="aui-w10" sortBy="#{item.internationalName}">
+		        <p:column headerText="#{i18n['ten-quoc-te-m003']}" styleClass="aui-w10" sortBy="#{item.internationalName}">
 		            <h:outputText value="#{item.internationalName}" />
 		        </p:column>
-		        <p:column headerText="Code" styleClass="aui-w10">
+		        <p:column headerText="#{i18n['ma-m003']}" styleClass="aui-w10">
 		            <h:outputText value="#{item.code}" />
 		        </p:column>
-		        <p:column headerText="Continent" >
+		        <p:column headerText="#{i18n['chau-luc-m003']}" >
 		            <h:outputText value="#{item.continent.name}" />
 		        </p:column>
-		        <p:column headerText="Priority" styleClass="aui-w8" sortBy="#{item.priority}">
+		        <p:column headerText="#{i18n['do-uu-tien-m003']}" styleClass="aui-w8" sortBy="#{item.priority}">
 		            <h:outputText value="#{item.priority}" />
 		        </p:column>
-		        <p:column headerText="Status" >
-		            <h:outputText value="#{item.active ? 'Active' : 'DeActive'}" />
+		        <p:column headerText="#{i18n['trang-thai-m003']}" >
+		            <h:outputText value="#{item.active ? i18n['hoat-dong-m003'] : i18n['ngung-hoat-dong-m003']}" />
 		        </p:column>
 		        <p:column styleClass="aui-w10">
-		            <p:menuButton value="Action" rendered="#{countryBean.hasUpdatePermission and countryBean.hasAddPermission}">
-		            	<p:menuitem value="Edit" process="@this" update=":frm:dialog" 
+		            <p:menuButton value="#{i18n['hanh-dong-m003']}" rendered="#{countryBean.hasUpdatePermission and countryBean.hasAddPermission}">
+		            	<p:menuitem value="#{i18n['sua-m003']}" process="@this" update=":frm:dialog" 
 		            		actionListener="#{countryBean.update}">
 		            		<p:resetInput target=":frm:dialog"/>
 		            	</p:menuitem>	
-						<p:menuitem value="#{item.active ? 'DeActive' : 'Active'}" 
+						<p:menuitem value="#{item.active ? i18n['hoat-dong-m003'] : i18n['ngung-hoat-dong-m003']}" 
 							process="@this" actionListener="#{countryBean.deActivate}" 
 							update=":frm:dt" 
-							onclick="if (! confirm('Are you sure to do this action ?')) {return false;}" />
+							onclick="if (! confirm('#{i18n['ban-co-muon-thuc-hien-thao-tac-nay-m003']} ? ')) {return false;}" />
 		            </p:menuButton>
 		        </p:column>
 		    </p:dataTable>
 			
-			<p:dialog id="dialog" modal="true" widgetVar="dlgAdd" header="Add Country" width="800">
+			<p:dialog id="dialog" modal="true" widgetVar="dlgAdd" header="#{i18n['thong-tin-luu-tru-m003']}" width="800">
 				<p:messages id="messages" showDetail="true" closable="true"/>
 				<p:blockUI block="pngContent" widgetVar="bl"/>
 				<h:panelGroup id="pngContent">
 					<h:panelGrid columns="4" columnClasses="aui-w15 aui-wb, aui-w35, aui-w15 aui-wb" styleClass="aui-w100">
-						<h:outputText value="Name: &lt;font color='red'&gt; &lt;b&gt;(*) &lt;/b&gt; &lt;/font&gt;" escape="false"/>
-						<p:inputText value="#{countryBean.country.name}" required="true"/>
-						<h:outputText value="Continent: &lt;font color='red'&gt; &lt;b&gt;(*) &lt;/b&gt; &lt;/font&gt;" escape="false"/>
+						<h:outputText value="#{i18n['chau-luc-m003']} &lt;font color='red'&gt; &lt;b&gt;(*) &lt;/b&gt; &lt;/font&gt;" escape="false"/>
 						<p:selectOneMenu value="#{countryBean.continentId}" filter="true" filterMatchMode="contains" >
 							<f:selectItem itemValue="null" itemLabel=""/>
 							<f:selectItems value="#{countryBean.continents}" 
 								var="continent" itemValue="#{continent.continentId}" itemLabel="#{continent.name}"/>
 						</p:selectOneMenu>
-						<h:outputText value="International Name: &lt;font color='red'&gt; &lt;b&gt;(*) &lt;/b&gt; &lt;/font&gt;" escape="false"/>
+						<h:outputText value="#{i18n['ten-quoc-gia-m003']} &lt;font color='red'&gt; &lt;b&gt;(*) &lt;/b&gt; &lt;/font&gt;" escape="false"/>
+						<p:inputText value="#{countryBean.country.name}" required="true"/>
+						<h:outputText value="#{i18n['ten-quoc-te-m003']} &lt;font color='red'&gt; &lt;b&gt;(*) &lt;/b&gt; &lt;/font&gt;" escape="false"/>
 						<p:inputText value="#{countryBean.country.internationalName}" required="true"/>
-						<h:outputText value="Code: &lt;font color='red'&gt; &lt;b&gt;(*) &lt;/b&gt; &lt;/font&gt;" escape="false"/>
+						<h:outputText value="#{i18n['ma-m003']} &lt;font color='red'&gt; &lt;b&gt;(*) &lt;/b&gt; &lt;/font&gt;" escape="false"/>
 						<p:inputText value="#{countryBean.country.code}" required="true"/>
-						<h:outputText value="Priority: "/>
+						<h:outputText value="#{i18n['do-uu-tien-m003']} "/>
 						<p:inputText value="#{countryBean.country.priority}" converter="integerConverter"/>
-						<h:outputText value="Active: " />
+						<h:outputText value="#{i18n['hoat-dong-m003']} " />
 						<p:selectOneMenu value="#{countryBean.country.active}">
-							<f:selectItem itemLabel="Active" itemValue="true"/>
-							<f:selectItem itemLabel="DeActive" itemValue="false"/>
+							<f:selectItem itemLabel="#{i18n['hoat-dong-m003']}" itemValue="true"/>
+							<f:selectItem itemLabel="#{i18n['ngung-hoat-dong-m003']}" itemValue="false"/>
 						</p:selectOneMenu>
 					</h:panelGrid>
 					<h:panelGrid columns="2" columnClasses="aui-w15 aui-wb, aui-w85" styleClass="aui-w100">
-						<h:outputText value="Description: "/>
+						<h:outputText value="#{i18n['mo-ta-m003']} "/>
 						<p:inputTextarea value="#{countryBean.country.description}"/>
 					</h:panelGrid>
 				</h:panelGroup>
-				<h:panelGrid columns="2" columnClasses="aui-w15 aui-wb, aui-w85" styleClass="aui-w100">
+				<h:panelGrid id="pngBtn" columns="2" columnClasses="aui-w15 aui-wb, aui-w85" styleClass="aui-w100">
 					<h:outputText />
 					<h:panelGroup>
-						<p:commandButton process="@this pngContent" update="pngContent :frm:dt"
-							value="Save" actionListener="#{countryBean.save}" 
+						<p:commandButton process="@this pngContent" update="pngContent pngBtn :frm:dt"
+							value="#{i18n['luu-m003']}" actionListener="#{countryBean.save}" 
 							onstart="PF('bl').show();" oncomplete="PF('bl').hide();"/>
+						<p:commandButton process="@this pngContent" update="pngContent pngBtn :frm:dt" rendered="#{countryBean.country.countryId eq 0}"
+							value="#{i18n['luu-them-moi-m003']}" actionListener="#{countryBean.saveNew}" 
+							onstart="PF('bl').show();" oncomplete="PF('bl').hide();"/>	
 						<p:commandButton process="@this" update=":frm:dialog"
-							value="Close" oncomplete="PF('dlgAdd').hide();"/>
+							value="#{i18n['dong-m003']}" oncomplete="PF('dlgAdd').hide();"/>
 					</h:panelGroup>
 				</h:panelGrid>
 			</p:dialog>

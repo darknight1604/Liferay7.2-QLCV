@@ -37,13 +37,13 @@ public class CountryServiceWrapper
 	public com.nss.commoncategory.model.Country addCountry(
 			long userId, long continentId, String name,
 			String internationalName, String nationality, String code,
-			String description, int priority, int countCode,
+			String description, int priority, int countCode, boolean active,
 			com.liferay.portal.kernel.service.ServiceContext serContext)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return _countryService.addCountry(
 			userId, continentId, name, internationalName, nationality, code,
-			description, priority, countCode, serContext);
+			description, priority, countCode, active, serContext);
 	}
 
 	/**
@@ -81,12 +81,12 @@ public class CountryServiceWrapper
 	public com.nss.commoncategory.model.Country updateCountry(
 			long countryId, long continentId, String name,
 			String internationalName, String nationality, String code,
-			String description, int priority, int countCode)
+			String description, int priority, int countCode, boolean active)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return _countryService.updateCountry(
 			countryId, continentId, name, internationalName, nationality, code,
-			description, priority, countCode);
+			description, priority, countCode, active);
 	}
 
 	@Override

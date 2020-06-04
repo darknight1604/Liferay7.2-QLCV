@@ -50,7 +50,7 @@ public class CountryImpl extends CountryBaseImpl {
 	}
 
 	public Continent getContinent() {
-		if(continent == null && getContinentId() > 0) {
+		if((continent == null && getContinentId() > 0) || (continent != null && continent.getContinentId() != getContinentId())) {
 			try {
 				continent = ContinentLocalServiceUtil.fetchContinent(getContinentId());
 			} catch (Exception e) {

@@ -26,10 +26,18 @@ import com.liferay.portal.kernel.util.PortalUtil;
 
 import com.nss.commoncategory.model.Country;
 import com.nss.commoncategory.service.CountryService;
+import com.nss.commoncategory.service.persistence.CityFinder;
+import com.nss.commoncategory.service.persistence.CityPersistence;
 import com.nss.commoncategory.service.persistence.ContinentFinder;
 import com.nss.commoncategory.service.persistence.ContinentPersistence;
 import com.nss.commoncategory.service.persistence.CountryFinder;
 import com.nss.commoncategory.service.persistence.CountryPersistence;
+import com.nss.commoncategory.service.persistence.DistrictFinder;
+import com.nss.commoncategory.service.persistence.DistrictPersistence;
+import com.nss.commoncategory.service.persistence.StreetFinder;
+import com.nss.commoncategory.service.persistence.StreetPersistence;
+import com.nss.commoncategory.service.persistence.WardFinder;
+import com.nss.commoncategory.service.persistence.WardPersistence;
 
 import javax.sql.DataSource;
 
@@ -110,6 +118,12 @@ public abstract class CountryServiceBaseImpl
 	}
 
 	@Reference
+	protected CityPersistence cityPersistence;
+
+	@Reference
+	protected CityFinder cityFinder;
+
+	@Reference
 	protected ContinentPersistence continentPersistence;
 
 	@Reference
@@ -126,6 +140,24 @@ public abstract class CountryServiceBaseImpl
 
 	@Reference
 	protected CountryFinder countryFinder;
+
+	@Reference
+	protected DistrictPersistence districtPersistence;
+
+	@Reference
+	protected DistrictFinder districtFinder;
+
+	@Reference
+	protected StreetPersistence streetPersistence;
+
+	@Reference
+	protected StreetFinder streetFinder;
+
+	@Reference
+	protected WardPersistence wardPersistence;
+
+	@Reference
+	protected WardFinder wardFinder;
 
 	@Reference
 	protected com.liferay.counter.kernel.service.CounterLocalService

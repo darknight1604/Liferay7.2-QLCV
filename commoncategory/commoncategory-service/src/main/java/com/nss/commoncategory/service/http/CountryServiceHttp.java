@@ -173,6 +173,7 @@ public class CountryServiceHttp {
 			HttpPrincipal httpPrincipal, long userId, long continentId,
 			String name, String internationalName, String nationality,
 			String code, String description, int priority, int countCode,
+			boolean active,
 			com.liferay.portal.kernel.service.ServiceContext serContext)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
@@ -183,7 +184,7 @@ public class CountryServiceHttp {
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, userId, continentId, name, internationalName,
-				nationality, code, description, priority, countCode,
+				nationality, code, description, priority, countCode, active,
 				serContext);
 
 			Object returnObj = null;
@@ -215,7 +216,8 @@ public class CountryServiceHttp {
 	public static com.nss.commoncategory.model.Country updateCountry(
 			HttpPrincipal httpPrincipal, long countryId, long continentId,
 			String name, String internationalName, String nationality,
-			String code, String description, int priority, int countCode)
+			String code, String description, int priority, int countCode,
+			boolean active)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		try {
@@ -225,7 +227,7 @@ public class CountryServiceHttp {
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, countryId, continentId, name, internationalName,
-				nationality, code, description, priority, countCode);
+				nationality, code, description, priority, countCode, active);
 
 			Object returnObj = null;
 
@@ -263,13 +265,13 @@ public class CountryServiceHttp {
 		new Class[] {long.class};
 	private static final Class<?>[] _addCountryParameterTypes3 = new Class[] {
 		long.class, long.class, String.class, String.class, String.class,
-		String.class, String.class, int.class, int.class,
+		String.class, String.class, int.class, int.class, boolean.class,
 		com.liferay.portal.kernel.service.ServiceContext.class
 	};
 	private static final Class<?>[] _updateCountryParameterTypes4 =
 		new Class[] {
 			long.class, long.class, String.class, String.class, String.class,
-			String.class, String.class, int.class, int.class
+			String.class, String.class, int.class, int.class, boolean.class
 		};
 
 }

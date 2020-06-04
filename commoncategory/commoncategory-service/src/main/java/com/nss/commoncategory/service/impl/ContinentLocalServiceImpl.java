@@ -55,7 +55,7 @@ public class ContinentLocalServiceImpl extends ContinentLocalServiceBaseImpl {
 	 * Never reference this class directly. Use <code>com.nss.commoncategory.service.ContinentLocalService</code> via injection or a <code>org.osgi.util.tracker.ServiceTracker</code> or use <code>com.nss.commoncategory.service.ContinentLocalServiceUtil</code>.
 	 */
 	public Continent addContinent(long userId, String name, String internationalName, 
-			String code, String description, int priority, int countCode, ServiceContext serContext) throws PortalException {
+			String code, String description, int priority, int countCode, boolean active, ServiceContext serContext) throws PortalException {
 		_validateContinentByCode(0, code);
 		long continentId = counterLocalService.increment(Continent.class.getName());
 		Continent continent = createContinent(continentId);
@@ -77,7 +77,7 @@ public class ContinentLocalServiceImpl extends ContinentLocalServiceBaseImpl {
 		continent.setCode(code);
 		continent.setDescription(description);
 		continent.setPriority(priority);
-		continent.setActive(true);
+		continent.setActive(active);
 		continent.setCountCode(countCode);
 		
 		addContinent(continent);
@@ -86,7 +86,7 @@ public class ContinentLocalServiceImpl extends ContinentLocalServiceBaseImpl {
 	}
 	
 	public Continent update(long continentId, String name, String internationalName, 
-			String code, String description, int priority, int countCode) throws PortalException {
+			String code, String description, int priority, int countCode, boolean active) throws PortalException {
 		Continent continent = fetchContinent(continentId);
 		
 		_validateContinentByCode(continentId, code);
@@ -97,7 +97,7 @@ public class ContinentLocalServiceImpl extends ContinentLocalServiceBaseImpl {
 		continent.setCode(code);
 		continent.setDescription(description);
 		continent.setPriority(priority);
-		continent.setActive(true);
+		continent.setActive(active);
 		continent.setCountCode(countCode);
 		
 		updateContinent(continent);
