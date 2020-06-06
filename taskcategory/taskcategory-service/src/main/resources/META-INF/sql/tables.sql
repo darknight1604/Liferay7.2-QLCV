@@ -33,12 +33,12 @@ create table nss_taskcategory_tasktype (
 	groupId LONG,
 	companyId LONG,
 	userId LONG,
-	userName VARCHAR(255) null,
+	userName VARCHAR(75) null,
 	createDate DATE null,
 	modifiedDate DATE null,
-	name VARCHAR(255) null,
+	name VARCHAR(75) null,
 	code_ VARCHAR(75) null,
 	priority INTEGER,
 	active_ BOOLEAN,
-	description STRING null
+	description VARCHAR(75) null
 );

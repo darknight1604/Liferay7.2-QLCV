@@ -18,9 +18,14 @@ import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.jsonwebservice.JSONWebService;
 import com.liferay.portal.kernel.security.access.control.AccessControlled;
+import com.liferay.portal.kernel.security.auth.PrincipalException;
 import com.liferay.portal.kernel.service.BaseService;
+import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.transaction.Isolation;
+import com.liferay.portal.kernel.transaction.Propagation;
 import com.liferay.portal.kernel.transaction.Transactional;
+
+import com.nss.taskcategory.model.TaskType;
 
 import org.osgi.annotation.versioning.ProviderType;
 
@@ -47,6 +52,10 @@ public interface TaskTypeService extends BaseService {
 	 *
 	 * Never modify or reference this interface directly. Always use {@link TaskTypeServiceUtil} to access the task type remote service. Add custom service methods to <code>com.nss.taskcategory.service.impl.TaskTypeServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface.
 	 */
+	public TaskType addTaskType(
+			long userId, String name, String code, int priority, boolean active,
+			String description, ServiceContext serviceContext)
+		throws PortalException;
 
 	/**
 	 * Returns the OSGi service identifier.
@@ -54,5 +63,19 @@ public interface TaskTypeService extends BaseService {
 	 * @return the OSGi service identifier
 	 */
 	public String getOSGiServiceIdentifier();
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public boolean hasAddPermission(long groupId) throws PrincipalException;
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public boolean hasUpdatePermission(long groupId) throws PrincipalException;
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public boolean hasViewPermission(long groupId) throws PrincipalException;
+
+	public TaskType updateTaskType(
+			long taskTypeId, String name, String code, int priority,
+			boolean active, String description, ServiceContext serviceContext)
+		throws PortalException;
 
 }

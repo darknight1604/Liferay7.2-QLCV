@@ -39,6 +39,15 @@ public class TaskTypeServiceUtil {
 	 *
 	 * Never modify this class directly. Add custom service methods to <code>com.nss.taskcategory.service.impl.TaskTypeServiceImpl</code> and rerun ServiceBuilder to regenerate this class.
 	 */
+	public static com.nss.taskcategory.model.TaskType addTaskType(
+			long userId, String name, String code, int priority, boolean active,
+			String description,
+			com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return getService().addTaskType(
+			userId, name, code, priority, active, description, serviceContext);
+	}
 
 	/**
 	 * Returns the OSGi service identifier.
@@ -47,6 +56,35 @@ public class TaskTypeServiceUtil {
 	 */
 	public static String getOSGiServiceIdentifier() {
 		return getService().getOSGiServiceIdentifier();
+	}
+
+	public static boolean hasAddPermission(long groupId)
+		throws com.liferay.portal.kernel.security.auth.PrincipalException {
+
+		return getService().hasAddPermission(groupId);
+	}
+
+	public static boolean hasUpdatePermission(long groupId)
+		throws com.liferay.portal.kernel.security.auth.PrincipalException {
+
+		return getService().hasUpdatePermission(groupId);
+	}
+
+	public static boolean hasViewPermission(long groupId)
+		throws com.liferay.portal.kernel.security.auth.PrincipalException {
+
+		return getService().hasViewPermission(groupId);
+	}
+
+	public static com.nss.taskcategory.model.TaskType updateTaskType(
+			long taskTypeId, String name, String code, int priority,
+			boolean active, String description,
+			com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return getService().updateTaskType(
+			taskTypeId, name, code, priority, active, description,
+			serviceContext);
 	}
 
 	public static TaskTypeService getService() {

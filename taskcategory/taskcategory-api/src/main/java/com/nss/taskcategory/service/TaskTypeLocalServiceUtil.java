@@ -39,6 +39,15 @@ public class TaskTypeLocalServiceUtil {
 	 *
 	 * Never modify this class directly. Add custom service methods to <code>com.nss.taskcategory.service.impl.TaskTypeLocalServiceImpl</code> and rerun ServiceBuilder to regenerate this class.
 	 */
+	public static com.nss.taskcategory.model.TaskType addTaskType(
+			long userId, String name, String code, int priority, boolean active,
+			String description,
+			com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return getService().addTaskType(
+			userId, name, code, priority, active, description, serviceContext);
+	}
 
 	/**
 	 * Adds the task type to the database. Also notifies the appropriate model listeners.
@@ -50,6 +59,27 @@ public class TaskTypeLocalServiceUtil {
 		com.nss.taskcategory.model.TaskType taskType) {
 
 		return getService().addTaskType(taskType);
+	}
+
+	public static int countByActive(boolean active) {
+		return getService().countByActive(active);
+	}
+
+	public static int countByBaseSearch(
+			long companyId, long groupId, int active, String name, String code,
+			String description, boolean andOperator)
+		throws com.liferay.portal.kernel.exception.SystemException {
+
+		return getService().countByBaseSearch(
+			companyId, groupId, active, name, code, description, andOperator);
+	}
+
+	public static int countByCompanyId(long companyId) {
+		return getService().countByCompanyId(companyId);
+	}
+
+	public static int countByCompanyId_Active(long companyId, boolean active) {
+		return getService().countByCompanyId_Active(companyId, active);
 	}
 
 	/**
@@ -186,10 +216,44 @@ public class TaskTypeLocalServiceUtil {
 		return getService().dynamicQueryCount(dynamicQuery, projection);
 	}
 
+	public static com.nss.taskcategory.model.TaskType fetchByCode(String code) {
+		return getService().fetchByCode(code);
+	}
+
 	public static com.nss.taskcategory.model.TaskType fetchTaskType(
 		long taskTypeId) {
 
 		return getService().fetchTaskType(taskTypeId);
+	}
+
+	public static java.util.List<com.nss.taskcategory.model.TaskType>
+		findByActive(boolean active) {
+
+		return getService().findByActive(active);
+	}
+
+	public static java.util.List<com.nss.taskcategory.model.TaskType>
+			findByBaseSearch(
+				long companyId, long groupId, int active, String name,
+				String code, String description, boolean andOperator, int start,
+				int end, com.liferay.portal.kernel.util.OrderByComparator obc)
+		throws com.liferay.portal.kernel.exception.SystemException {
+
+		return getService().findByBaseSearch(
+			companyId, groupId, active, name, code, description, andOperator,
+			start, end, obc);
+	}
+
+	public static java.util.List<com.nss.taskcategory.model.TaskType>
+		findByCompanyId(long companyId) {
+
+		return getService().findByCompanyId(companyId);
+	}
+
+	public static java.util.List<com.nss.taskcategory.model.TaskType>
+		findByCompanyId_Active(long companyId, boolean active) {
+
+		return getService().findByCompanyId_Active(companyId, active);
 	}
 
 	public static com.liferay.portal.kernel.dao.orm.ActionableDynamicQuery
@@ -259,6 +323,17 @@ public class TaskTypeLocalServiceUtil {
 	 */
 	public static int getTaskTypesCount() {
 		return getService().getTaskTypesCount();
+	}
+
+	public static com.nss.taskcategory.model.TaskType updateTaskType(
+			long taskTypeId, String name, String code, int priority,
+			boolean active, String description,
+			com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return getService().updateTaskType(
+			taskTypeId, name, code, priority, active, description,
+			serviceContext);
 	}
 
 	/**

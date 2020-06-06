@@ -35,6 +35,17 @@ public class TaskTypeLocalServiceWrapper
 		_taskTypeLocalService = taskTypeLocalService;
 	}
 
+	@Override
+	public com.nss.taskcategory.model.TaskType addTaskType(
+			long userId, String name, String code, int priority, boolean active,
+			String description,
+			com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _taskTypeLocalService.addTaskType(
+			userId, name, code, priority, active, description, serviceContext);
+	}
+
 	/**
 	 * Adds the task type to the database. Also notifies the appropriate model listeners.
 	 *
@@ -46,6 +57,31 @@ public class TaskTypeLocalServiceWrapper
 		com.nss.taskcategory.model.TaskType taskType) {
 
 		return _taskTypeLocalService.addTaskType(taskType);
+	}
+
+	@Override
+	public int countByActive(boolean active) {
+		return _taskTypeLocalService.countByActive(active);
+	}
+
+	@Override
+	public int countByBaseSearch(
+			long companyId, long groupId, int active, String name, String code,
+			String description, boolean andOperator)
+		throws com.liferay.portal.kernel.exception.SystemException {
+
+		return _taskTypeLocalService.countByBaseSearch(
+			companyId, groupId, active, name, code, description, andOperator);
+	}
+
+	@Override
+	public int countByCompanyId(long companyId) {
+		return _taskTypeLocalService.countByCompanyId(companyId);
+	}
+
+	@Override
+	public int countByCompanyId_Active(long companyId, boolean active) {
+		return _taskTypeLocalService.countByCompanyId_Active(companyId, active);
 	}
 
 	/**
@@ -188,8 +224,46 @@ public class TaskTypeLocalServiceWrapper
 	}
 
 	@Override
+	public com.nss.taskcategory.model.TaskType fetchByCode(String code) {
+		return _taskTypeLocalService.fetchByCode(code);
+	}
+
+	@Override
 	public com.nss.taskcategory.model.TaskType fetchTaskType(long taskTypeId) {
 		return _taskTypeLocalService.fetchTaskType(taskTypeId);
+	}
+
+	@Override
+	public java.util.List<com.nss.taskcategory.model.TaskType> findByActive(
+		boolean active) {
+
+		return _taskTypeLocalService.findByActive(active);
+	}
+
+	@Override
+	public java.util.List<com.nss.taskcategory.model.TaskType> findByBaseSearch(
+			long companyId, long groupId, int active, String name, String code,
+			String description, boolean andOperator, int start, int end,
+			com.liferay.portal.kernel.util.OrderByComparator obc)
+		throws com.liferay.portal.kernel.exception.SystemException {
+
+		return _taskTypeLocalService.findByBaseSearch(
+			companyId, groupId, active, name, code, description, andOperator,
+			start, end, obc);
+	}
+
+	@Override
+	public java.util.List<com.nss.taskcategory.model.TaskType> findByCompanyId(
+		long companyId) {
+
+		return _taskTypeLocalService.findByCompanyId(companyId);
+	}
+
+	@Override
+	public java.util.List<com.nss.taskcategory.model.TaskType>
+		findByCompanyId_Active(long companyId, boolean active) {
+
+		return _taskTypeLocalService.findByCompanyId_Active(companyId, active);
 	}
 
 	@Override
@@ -264,6 +338,18 @@ public class TaskTypeLocalServiceWrapper
 	@Override
 	public int getTaskTypesCount() {
 		return _taskTypeLocalService.getTaskTypesCount();
+	}
+
+	@Override
+	public com.nss.taskcategory.model.TaskType updateTaskType(
+			long taskTypeId, String name, String code, int priority,
+			boolean active, String description,
+			com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _taskTypeLocalService.updateTaskType(
+			taskTypeId, name, code, priority, active, description,
+			serviceContext);
 	}
 
 	/**

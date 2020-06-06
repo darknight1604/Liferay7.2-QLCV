@@ -25,6 +25,7 @@ import com.liferay.portal.kernel.search.Indexable;
 import com.liferay.portal.kernel.search.IndexableType;
 import com.liferay.portal.kernel.service.BaseLocalService;
 import com.liferay.portal.kernel.service.PersistedModelLocalService;
+import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.transaction.Isolation;
 import com.liferay.portal.kernel.transaction.Propagation;
 import com.liferay.portal.kernel.transaction.Transactional;
@@ -61,6 +62,10 @@ public interface TaskTypeLocalService
 	 *
 	 * Never modify or reference this interface directly. Always use {@link TaskTypeLocalServiceUtil} to access the task type local service. Add custom service methods to <code>com.nss.taskcategory.service.impl.TaskTypeLocalServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface.
 	 */
+	public TaskType addTaskType(
+			long userId, String name, String code, int priority, boolean active,
+			String description, ServiceContext serviceContext)
+		throws PortalException;
 
 	/**
 	 * Adds the task type to the database. Also notifies the appropriate model listeners.
@@ -70,6 +75,17 @@ public interface TaskTypeLocalService
 	 */
 	@Indexable(type = IndexableType.REINDEX)
 	public TaskType addTaskType(TaskType taskType);
+
+	public int countByActive(boolean active);
+
+	public int countByBaseSearch(
+			long companyId, long groupId, int active, String name, String code,
+			String description, boolean andOperator)
+		throws SystemException;
+
+	public int countByCompanyId(long companyId);
+
+	public int countByCompanyId_Active(long companyId, boolean active);
 
 	/**
 	 * Creates a new task type with the primary key. Does not add the task type to the database.
@@ -173,7 +189,23 @@ public interface TaskTypeLocalService
 		DynamicQuery dynamicQuery, Projection projection);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public TaskType fetchByCode(String code);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public TaskType fetchTaskType(long taskTypeId);
+
+	public List<TaskType> findByActive(boolean active);
+
+	public List<TaskType> findByBaseSearch(
+			long companyId, long groupId, int active, String name, String code,
+			String description, boolean andOperator, int start, int end,
+			OrderByComparator obc)
+		throws SystemException;
+
+	public List<TaskType> findByCompanyId(long companyId);
+
+	public List<TaskType> findByCompanyId_Active(
+		long companyId, boolean active);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public ActionableDynamicQuery getActionableDynamicQuery();
@@ -224,6 +256,11 @@ public interface TaskTypeLocalService
 	 */
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public int getTaskTypesCount();
+
+	public TaskType updateTaskType(
+			long taskTypeId, String name, String code, int priority,
+			boolean active, String description, ServiceContext serviceContext)
+		throws PortalException;
 
 	/**
 	 * Updates the task type in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.

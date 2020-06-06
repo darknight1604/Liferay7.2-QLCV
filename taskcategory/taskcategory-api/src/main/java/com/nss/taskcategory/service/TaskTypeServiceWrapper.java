@@ -33,6 +33,17 @@ public class TaskTypeServiceWrapper
 		_taskTypeService = taskTypeService;
 	}
 
+	@Override
+	public com.nss.taskcategory.model.TaskType addTaskType(
+			long userId, String name, String code, int priority, boolean active,
+			String description,
+			com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _taskTypeService.addTaskType(
+			userId, name, code, priority, active, description, serviceContext);
+	}
+
 	/**
 	 * Returns the OSGi service identifier.
 	 *
@@ -41,6 +52,39 @@ public class TaskTypeServiceWrapper
 	@Override
 	public String getOSGiServiceIdentifier() {
 		return _taskTypeService.getOSGiServiceIdentifier();
+	}
+
+	@Override
+	public boolean hasAddPermission(long groupId)
+		throws com.liferay.portal.kernel.security.auth.PrincipalException {
+
+		return _taskTypeService.hasAddPermission(groupId);
+	}
+
+	@Override
+	public boolean hasUpdatePermission(long groupId)
+		throws com.liferay.portal.kernel.security.auth.PrincipalException {
+
+		return _taskTypeService.hasUpdatePermission(groupId);
+	}
+
+	@Override
+	public boolean hasViewPermission(long groupId)
+		throws com.liferay.portal.kernel.security.auth.PrincipalException {
+
+		return _taskTypeService.hasViewPermission(groupId);
+	}
+
+	@Override
+	public com.nss.taskcategory.model.TaskType updateTaskType(
+			long taskTypeId, String name, String code, int priority,
+			boolean active, String description,
+			com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _taskTypeService.updateTaskType(
+			taskTypeId, name, code, priority, active, description,
+			serviceContext);
 	}
 
 	@Override

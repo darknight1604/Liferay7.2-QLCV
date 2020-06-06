@@ -43,6 +43,8 @@ import com.nss.taskcategory.service.persistence.TaskGroupFinder;
 import com.nss.taskcategory.service.persistence.TaskGroupPersistence;
 import com.nss.taskcategory.service.persistence.TaskStatusFinder;
 import com.nss.taskcategory.service.persistence.TaskStatusPersistence;
+import com.nss.taskcategory.service.persistence.TaskTypeFinder;
+import com.nss.taskcategory.service.persistence.TaskTypePersistence;
 
 import java.io.Serializable;
 
@@ -395,6 +397,12 @@ public abstract class TaskGroupLocalServiceBaseImpl
 
 	@Reference
 	protected TaskStatusFinder taskStatusFinder;
+
+	@Reference
+	protected TaskTypePersistence taskTypePersistence;
+
+	@Reference
+	protected TaskTypeFinder taskTypeFinder;
 
 	@Reference
 	protected com.liferay.counter.kernel.service.CounterLocalService
