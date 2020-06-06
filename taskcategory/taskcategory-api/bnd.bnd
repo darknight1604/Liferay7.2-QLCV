@@ -1,0 +1,10 @@
+Bundle-Name: taskcategory-api
+Bundle-SymbolicName: com.nss.taskcategory.api
+Bundle-Version: 1.0.0
+Export-Package:\
+	com.nss.taskcategory.exception,\
+	com.nss.taskcategory.model,\
+	com.nss.taskcategory.service,\
+	com.nss.taskcategory.service.persistence
+-check: EXPORTS
+-includeresource: META-INF/service.xml=../taskcategory-service/service.xml

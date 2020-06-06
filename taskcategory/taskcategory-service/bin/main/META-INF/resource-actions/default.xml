@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<!DOCTYPE resource-action-mapping PUBLIC "-//Liferay//DTD Resource Action Mapping 7.2.0//EN" "http://www.liferay.com/dtd/liferay-resource-action-mapping_7_2_0.dtd">
+
+<resource-action-mapping>
+	<resource file="META-INF/resource-actions/task_status.xml" />
+	<resource file="META-INF/resource-actions/task_group.xml" />
+	<resource file="META-INF/resource-actions/task_type.xml" />
+</resource-action-mapping>
