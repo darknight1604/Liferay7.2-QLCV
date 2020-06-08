@@ -4,6 +4,12 @@ use lportal;
 
 
 
+create index IX_ACEBDB67 on nss_taskcategory_currency (active_);
+create index IX_4C48D620 on nss_taskcategory_currency (code_);
+create index IX_CBD664C3 on nss_taskcategory_currency (companyId, active_);
+
+create index IX_2F348FDF on nss_taskcategory_investor (companyId);
+
 create index IX_56066634 on nss_taskcategory_taskgroup (active_);
 create index IX_4C31B02D on nss_taskcategory_taskgroup (code_);
 create index IX_3AE307D6 on nss_taskcategory_taskgroup (companyId, active_);

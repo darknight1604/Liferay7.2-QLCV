@@ -147,6 +147,90 @@
 			<finder-column name="code" />
 		</finder>
 	</entity>
+	<entity local-service="true" name="Investor" remote-service="true" table="nss_taskcategory_investor">
+
+		<!-- PK fields -->
+
+		<column name="investorId" primary="true" type="long" />
+
+		<!-- Group instance -->
+
+		<column name="groupId" type="long" />
+
+		<!-- Audit fields -->
+
+		<column name="companyId" type="long" />
+		<column name="userId" type="long" />
+		<column name="userName" type="String" />
+		<column name="createDate" type="Date" />
+		<column name="modifiedDate" type="Date" />
+
+		<!-- Other fields -->
+
+		<column name="name" type="String" />
+		<column name="phoneNumber" type="String" />
+		<column name="email" type="String" />
+
+		<!-- Order -->
+
+		<order by="asc">
+			<order-column name="investorId" />
+		</order>
+
+		<!-- Finder methods -->
+
+		<finder name="CompanyId" return-type="Collection">
+			<finder-column name="companyId" />
+		</finder>
+	</entity>
+	<entity local-service="true" name="Currency" remote-service="true" table="nss_taskcategory_currency">
+
+		<!-- PK fields -->
+
+		<column name="currencyId" primary="true" type="long" />
+
+		<!-- Group instance -->
+
+		<column name="groupId" type="long" />
+
+		<!-- Audit fields -->
+
+		<column name="companyId" type="long" />
+		<column name="userId" type="long" />
+		<column name="userName" type="String" />
+		<column name="createDate" type="Date" />
+		<column name="modifiedDate" type="Date" />
+
+		<!-- Other fields -->
+
+		<column name="name" type="String" />
+		<column name="code" type="String" />
+		<column name="priority" type="int" />
+		<column name="active" type="boolean" />
+		<column name="description" type="String" />
+
+		<!-- Order -->
+
+		<order by="asc">
+			<order-column name="priority" />
+		</order>
+
+		<!-- Finder methods -->
+
+		<finder name="CompanyId" return-type="Collection">
+			<finder-column name="companyId" />
+		</finder>
+		<finder name="CompanyId_Active" return-type="Collection">
+			<finder-column name="companyId" />
+			<finder-column name="active" />
+		</finder>
+		<finder name="Active" return-type="Collection">
+			<finder-column name="active" />
+		</finder>
+		<finder name="Code" return-type="Currency">
+			<finder-column name="code" />
+		</finder>
+	</entity>
 	<exceptions>
 		<exception>EmptyCode</exception>
 		<exception>DuplicateCode</exception>

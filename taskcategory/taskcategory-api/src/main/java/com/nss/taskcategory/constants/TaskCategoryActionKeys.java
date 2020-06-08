@@ -8,4 +8,8 @@ public class TaskCategoryActionKeys extends ActionKeys{
 	public static final String ADD_TASKSTATUS = "ADD_TASKSTATUS";
 	
 	public static final String ADD_TASKGROUP = "ADD_TASKGROUP";
+	
+	public static final String ADD_INVESTOR = "ADD_INVESTOR";
+	
+	public static final String ADD_CURRENCY = "ADD_CURRENCY";
 }

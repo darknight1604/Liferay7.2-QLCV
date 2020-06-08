@@ -4,4 +4,6 @@
 	<sql file="META-INF/custom-sql/task_status.xml" />
 	<sql file="META-INF/custom-sql/task_group.xml" />
 	<sql file="META-INF/custom-sql/task_type.xml" />
+	<sql file="META-INF/custom-sql/investor.xml" />
+	<sql file="META-INF/custom-sql/currency.xml" />
 </custom-sql>

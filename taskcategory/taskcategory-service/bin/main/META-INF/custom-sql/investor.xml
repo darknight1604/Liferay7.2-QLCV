@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<custom-sql>
+	<sql id="com.nss.taskcategory.service.persistence.InvestorFinder.countByBaseSearch">
+		<![CDATA[
+			SELECT COUNT(nss_taskcategory_investor.*) AS COUNT_VALUE
+			FROM nss_taskcategory_investor
+			WHERE true
+			AND companyId = ?
+			AND groupId = ?
+			AND
+				(	
+					(LOWER(name) LIKE ? [$AND_OR_NULL_CHECK$]) [$AND_OR_CONNECTOR$]
+					(LOWER(phonenumber) LIKE ? [$AND_OR_NULL_CHECK$]) [$AND_OR_CONNECTOR$]
+					(LOWER(email) LIKE ? [$AND_OR_NULL_CHECK$])
+				)
+				
+		]]>
+	</sql>
+	<sql id="com.nss.taskcategory.service.persistence.InvestorFinder.findByBaseSearch">
+		<![CDATA[
+			SELECT nss_taskcategory_investor.*
+			FROM nss_taskcategory_investor
+			WHERE true
+			AND companyId = ?
+			AND groupId = ?
+			AND
+				(	
+					(LOWER(name) LIKE ? [$AND_OR_NULL_CHECK$]) [$AND_OR_CONNECTOR$]
+					(LOWER(phonenumber) LIKE ? [$AND_OR_NULL_CHECK$]) [$AND_OR_CONNECTOR$]
+					(LOWER(email) LIKE ? [$AND_OR_NULL_CHECK$])
+				)
+		]]>
+	</sql>
+</custom-sql>

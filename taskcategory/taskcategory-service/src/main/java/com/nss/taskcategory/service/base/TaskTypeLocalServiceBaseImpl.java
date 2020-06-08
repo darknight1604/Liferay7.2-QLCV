@@ -39,6 +39,10 @@ import com.liferay.portal.kernel.util.PortalUtil;
 
 import com.nss.taskcategory.model.TaskType;
 import com.nss.taskcategory.service.TaskTypeLocalService;
+import com.nss.taskcategory.service.persistence.CurrencyFinder;
+import com.nss.taskcategory.service.persistence.CurrencyPersistence;
+import com.nss.taskcategory.service.persistence.InvestorFinder;
+import com.nss.taskcategory.service.persistence.InvestorPersistence;
 import com.nss.taskcategory.service.persistence.TaskGroupFinder;
 import com.nss.taskcategory.service.persistence.TaskGroupPersistence;
 import com.nss.taskcategory.service.persistence.TaskStatusFinder;
@@ -382,6 +386,18 @@ public abstract class TaskTypeLocalServiceBaseImpl
 			throw new SystemException(e);
 		}
 	}
+
+	@Reference
+	protected CurrencyPersistence currencyPersistence;
+
+	@Reference
+	protected CurrencyFinder currencyFinder;
+
+	@Reference
+	protected InvestorPersistence investorPersistence;
+
+	@Reference
+	protected InvestorFinder investorFinder;
 
 	@Reference
 	protected TaskGroupPersistence taskGroupPersistence;

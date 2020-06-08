@@ -5,4 +5,6 @@
 	<resource file="META-INF/resource-actions/task_status.xml" />
 	<resource file="META-INF/resource-actions/task_group.xml" />
 	<resource file="META-INF/resource-actions/task_type.xml" />
+	<resource file="META-INF/resource-actions/investor.xml" />
+	<resource file="META-INF/resource-actions/currency.xml" />
 </resource-action-mapping>

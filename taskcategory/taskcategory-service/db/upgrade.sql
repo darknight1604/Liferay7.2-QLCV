@@ -1,4 +1,38 @@
--- LƯU Ý: FILE ĐƯỢC SẮP XẾP THEO THỜI GIAN TĂNG DẦN
+-- LƯU Ý: FILE ĐƯỢC SẮP XẾP THEO THỜI GIAN GIẢM DẦN
+--@Author: tanhq
+--@CreateDate: 08/06/2020
+create table nss_taskcategory_investor (
+	investorId bigint not null primary key,
+	groupId bigint,
+	companyId bigint,
+	userId bigint,
+	userName varchar(255) null,
+	createDate timestamp null,
+	modifiedDate timestamp null,
+	name varchar(255) null,
+	phoneNumber varchar(75) null,
+	email varchar(75) null
+);
+create index IX_2F348FDF on nss_taskcategory_investor (companyId);
+
+create table nss_taskcategory_currency (
+	currencyId bigint not null primary key,
+	groupId bigint,
+	companyId bigint,
+	userId bigint,
+	userName varchar(255) null,
+	createDate timestamp null,
+	modifiedDate timestamp null,
+	name varchar(255) null,
+	code_ varchar(75) null,
+	priority integer,
+	active_ bool,
+	description text null
+);
+
+create index IX_ACEBDB67 on nss_taskcategory_currency (active_);
+create index IX_4C48D620 on nss_taskcategory_currency (code_);
+create index IX_CBD664C3 on nss_taskcategory_currency (companyId, active_);
 
 --@Author: tanhq
 --@CreateDate: 05/06/2020
