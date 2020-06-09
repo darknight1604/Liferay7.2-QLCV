@@ -56,4 +56,6 @@ public interface Investor extends InvestorModel, PersistedModel {
 
 		};
 
+	public com.nss.commoncategory.model.Address getAddress();
+
 }

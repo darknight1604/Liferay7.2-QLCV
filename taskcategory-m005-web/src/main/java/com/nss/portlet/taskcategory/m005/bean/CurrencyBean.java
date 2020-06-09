@@ -11,9 +11,9 @@ import com.nss.portlet.taskcategory.util.LanguageUtil_m005;
 import com.nss.portlet.taskcategory.util.constants.MyConstants;
 import com.nss.taskcategory.exception.DuplicateCodeException;
 import com.nss.taskcategory.model.Currency;
-import com.nss.taskcategory.model.TaskType;
 
 import java.util.Date;
+
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.faces.application.FacesMessage;
@@ -21,6 +21,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
+
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.FrameworkUtil;

@@ -65,7 +65,7 @@ public class InvestorCacheModel
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(21);
+		StringBundler sb = new StringBundler(23);
 
 		sb.append("{investorId=");
 		sb.append(investorId);
@@ -87,6 +87,8 @@ public class InvestorCacheModel
 		sb.append(phoneNumber);
 		sb.append(", email=");
 		sb.append(email);
+		sb.append(", active=");
+		sb.append(active);
 		sb.append("}");
 
 		return sb.toString();
@@ -143,6 +145,8 @@ public class InvestorCacheModel
 			investorImpl.setEmail(email);
 		}
 
+		investorImpl.setActive(active);
+
 		investorImpl.resetOriginalValues();
 
 		return investorImpl;
@@ -163,6 +167,8 @@ public class InvestorCacheModel
 		name = objectInput.readUTF();
 		phoneNumber = objectInput.readUTF();
 		email = objectInput.readUTF();
+
+		active = objectInput.readBoolean();
 	}
 
 	@Override
@@ -205,6 +211,8 @@ public class InvestorCacheModel
 		else {
 			objectOutput.writeUTF(email);
 		}
+
+		objectOutput.writeBoolean(active);
 	}
 
 	public long investorId;
@@ -217,5 +225,6 @@ public class InvestorCacheModel
 	public String name;
 	public String phoneNumber;
 	public String email;
+	public boolean active;
 
 }

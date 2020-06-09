@@ -44,6 +44,7 @@ public class InvestorSoap implements Serializable {
 		soapModel.setName(model.getName());
 		soapModel.setPhoneNumber(model.getPhoneNumber());
 		soapModel.setEmail(model.getEmail());
+		soapModel.setActive(model.isActive());
 
 		return soapModel;
 	}
@@ -177,6 +178,18 @@ public class InvestorSoap implements Serializable {
 		_email = email;
 	}
 
+	public boolean getActive() {
+		return _active;
+	}
+
+	public boolean isActive() {
+		return _active;
+	}
+
+	public void setActive(boolean active) {
+		_active = active;
+	}
+
 	private long _investorId;
 	private long _groupId;
 	private long _companyId;
@@ -187,5 +200,6 @@ public class InvestorSoap implements Serializable {
 	private String _name;
 	private String _phoneNumber;
 	private String _email;
+	private boolean _active;
 
 }

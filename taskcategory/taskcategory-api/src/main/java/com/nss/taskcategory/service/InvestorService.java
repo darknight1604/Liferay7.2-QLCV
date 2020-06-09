@@ -25,6 +25,7 @@ import com.liferay.portal.kernel.transaction.Isolation;
 import com.liferay.portal.kernel.transaction.Propagation;
 import com.liferay.portal.kernel.transaction.Transactional;
 
+import com.nss.commoncategory.model.AddressDTO;
 import com.nss.taskcategory.model.Investor;
 
 import org.osgi.annotation.versioning.ProviderType;
@@ -54,6 +55,7 @@ public interface InvestorService extends BaseService {
 	 */
 	public Investor addInvestor(
 			long userId, String name, String phoneNumber, String email,
+			boolean active, AddressDTO addressDTO,
 			ServiceContext serviceContext)
 		throws PortalException;
 
@@ -75,6 +77,7 @@ public interface InvestorService extends BaseService {
 
 	public Investor updateInvestor(
 			long investorId, String name, String phoneNumber, String email,
+			boolean active, AddressDTO addressDTO,
 			ServiceContext serviceContext)
 		throws PortalException;
 

@@ -31,6 +31,7 @@ import com.liferay.portal.kernel.transaction.Propagation;
 import com.liferay.portal.kernel.transaction.Transactional;
 import com.liferay.portal.kernel.util.OrderByComparator;
 
+import com.nss.commoncategory.model.AddressDTO;
 import com.nss.taskcategory.model.Investor;
 
 import java.io.Serializable;
@@ -74,6 +75,7 @@ public interface InvestorLocalService
 
 	public Investor addInvestor(
 			long userId, String name, String phoneNumber, String email,
+			boolean active, AddressDTO addressDTO,
 			ServiceContext serviceContext)
 		throws PortalException;
 
@@ -257,6 +259,7 @@ public interface InvestorLocalService
 
 	public Investor updateInvestor(
 			long investorId, String name, String phoneNumber, String email,
+			boolean active, AddressDTO addressDTO,
 			ServiceContext serviceContext)
 		throws PortalException;
 

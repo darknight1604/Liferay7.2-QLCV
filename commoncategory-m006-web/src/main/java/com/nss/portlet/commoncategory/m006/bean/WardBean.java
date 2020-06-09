@@ -152,11 +152,14 @@ public class WardBean {
 	}
 	
 	public void saveNew(ActionEvent event) {
-		save(event);
-		_createNewObject();
+		_save(true);
 	}
 	
 	public void save(ActionEvent event) { 
+		_save(false);
+	}
+	
+	public void _save(boolean saveNew) { 
 		try {
 			if(ward.getWardId() > 0) {
 				ward = wardServiceTracker.getService().updateWard(ward.getWardId(), 
@@ -172,6 +175,9 @@ public class WardBean {
 				lazyModel.setRowCount(MyConstants.REFRESH_PAGE);
 			}
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, LanguageUtil_m006.getString(MyConstants.PROCESSED_SUCCESSFULLY), StringPool.BLANK));
+			if(saveNew) {
+				_createNewObject();
+			}
 		} catch (Exception e) {
 			if(e instanceof PrincipalException) {
 				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, LanguageUtil_m006.getString(MyConstants.ERROR_PRINCIPAL), StringPool.BLANK));

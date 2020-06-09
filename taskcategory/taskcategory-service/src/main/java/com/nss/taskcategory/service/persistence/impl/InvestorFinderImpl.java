@@ -35,17 +35,18 @@ public class InvestorFinderImpl extends InvestorFinderBaseImpl implements Invest
 	public static final String COUNT_BY_BASE_SEARCH = InvestorFinder.class.getName() + ".countByBaseSearch";
 	public static final String FIND_BY_BASE_SEARCH = InvestorFinder.class.getName() + ".findByBaseSearch";
 
-	public int countByBaseSearch(long companyId, long groupId, int active, String name, String code, 
-			String description, boolean andOperator) throws SystemException {
-		return countByBaseSearch(companyId, groupId, active, new String[] { name }, new String[] { code }, new String[] { description }, andOperator);
+	public int countByBaseSearch(long companyId, long groupId, int active, String name, String phoneNumber, 
+			String email, boolean andOperator) throws SystemException {
+		return countByBaseSearch(companyId, groupId, active, new String[] { name }, new String[] { phoneNumber }, 
+				new String[] { email }, andOperator);
 	}
 
 	private int countByBaseSearch(long companyId, long groupId, int active, String[] names, 
-			String[] codes, String[] descriptions, boolean andOperator)
+			String[] phoneNumbers, String[] emails, boolean andOperator)
 			throws SystemException {
 		names = customSQL.keywords(names);
-		codes = customSQL.keywords(codes);
-		descriptions = customSQL.keywords(descriptions);
+		phoneNumbers = customSQL.keywords(phoneNumbers);
+		emails = customSQL.keywords(emails);
 		Session session = null;
 		try {
 			session = openSession();
@@ -57,8 +58,8 @@ public class InvestorFinderImpl extends InvestorFinderBaseImpl implements Invest
 				sql = StringUtil.replace(sql, "AND groupId = ?", StringPool.BLANK);
 			}
 			sql = customSQL.replaceKeywords(sql, "LOWER(name)", StringPool.LIKE, false, names);
-			sql = customSQL.replaceKeywords(sql, "LOWER(code_)", StringPool.LIKE, false, codes);
-			sql = customSQL.replaceKeywords(sql, "LOWER(description)", StringPool.LIKE, true, descriptions);
+			sql = customSQL.replaceKeywords(sql, "LOWER(phonenumber)", StringPool.LIKE, false, phoneNumbers);
+			sql = customSQL.replaceKeywords(sql, "LOWER(email)", StringPool.LIKE, true, emails);
 			sql = customSQL.replaceAndOperator(sql, andOperator);
 			SQLQuery q = session.createSQLQuery(sql);
 			q.addScalar(COUNT_COLUMN_NAME, Type.LONG);
@@ -71,8 +72,8 @@ public class InvestorFinderImpl extends InvestorFinderBaseImpl implements Invest
 				qPos.add(active == 1 ? Boolean.TRUE : Boolean.FALSE);
 			}
 			qPos.add(names, 2);
-			qPos.add(codes, 2);
-			qPos.add(descriptions, 2);
+			qPos.add(phoneNumbers, 2);
+			qPos.add(emails, 2);
 			Iterator<Long> iter = q.list().iterator();
 			if (iter.hasNext()) {
 				Long count = iter.next();
@@ -89,19 +90,20 @@ public class InvestorFinderImpl extends InvestorFinderBaseImpl implements Invest
 	}
 	
 	public List<Investor> findByBaseSearch(long companyId, long groupId, int active, 
-			String name, String code, String description, boolean andOperator, int start,
+			String name, String phoneNumber, 
+			String email, boolean andOperator, int start,
 			int end, OrderByComparator obc) throws SystemException {
 		return findByBaseSearch(companyId, groupId, active, new String[] { name }, 
-				new String[] { code }, new String[] { description }, andOperator, start, end,
+				new String[] { phoneNumber }, new String[] { email }, andOperator, start, end,
 				obc);
 	}
 
 	private List<Investor> findByBaseSearch(long companyId, long groupId, int active, String[] names, 
-			String[] codes, String[] descriptions, boolean andOperator,
+			String[] phoneNumbers, String[] emails, boolean andOperator,
 			int start, int end, OrderByComparator obc) throws SystemException {
 		names = customSQL.keywords(names);
-		codes = customSQL.keywords(codes);
-		descriptions = customSQL.keywords(descriptions);
+		phoneNumbers = customSQL.keywords(phoneNumbers);
+		emails = customSQL.keywords(emails);
 		Session session = null;
 		try {
 			session = openSession();
@@ -113,8 +115,8 @@ public class InvestorFinderImpl extends InvestorFinderBaseImpl implements Invest
 				sql = StringUtil.replace(sql, "AND groupId = ?", StringPool.BLANK);
 			}
 			sql = customSQL.replaceKeywords(sql, "LOWER(name)", StringPool.LIKE, false, names);
-			sql = customSQL.replaceKeywords(sql, "LOWER(code_)", StringPool.LIKE, false, codes);
-			sql = customSQL.replaceKeywords(sql, "LOWER(description)", StringPool.LIKE, true, descriptions);
+			sql = customSQL.replaceKeywords(sql, "LOWER(phonenumber)", StringPool.LIKE, false, phoneNumbers);
+			sql = customSQL.replaceKeywords(sql, "LOWER(email)", StringPool.LIKE, true, emails);
 			sql = customSQL.replaceAndOperator(sql, andOperator);
 			sql = customSQL.replaceOrderBy(sql, obc);
 			SQLQuery q = session.createSQLQuery(sql);
@@ -128,8 +130,8 @@ public class InvestorFinderImpl extends InvestorFinderBaseImpl implements Invest
 				qPos.add(active == 1 ? Boolean.TRUE : Boolean.FALSE);
 			}
 			qPos.add(names, 2);
-			qPos.add(codes, 2);
-			qPos.add(descriptions, 2);
+			qPos.add(phoneNumbers, 2);
+			qPos.add(emails, 2);
 			return (List<Investor>) QueryUtil.list(q, getDialect(), start, end);
 		} catch (Exception e) {
 			throw new SystemException(e);

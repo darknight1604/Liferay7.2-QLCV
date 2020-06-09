@@ -23,7 +23,8 @@ create table nss_taskcategory_investor (
 	modifiedDate DATE null,
 	name VARCHAR(75) null,
 	phoneNumber VARCHAR(75) null,
-	email VARCHAR(75) null
+	email VARCHAR(75) null,
+	active_ BOOLEAN
 );
 
 create table nss_taskcategory_taskgroup (

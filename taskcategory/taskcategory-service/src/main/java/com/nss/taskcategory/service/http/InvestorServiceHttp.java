@@ -57,7 +57,8 @@ public class InvestorServiceHttp {
 
 	public static com.nss.taskcategory.model.Investor addInvestor(
 			HttpPrincipal httpPrincipal, long userId, String name,
-			String phoneNumber, String email,
+			String phoneNumber, String email, boolean active,
+			com.nss.commoncategory.model.AddressDTO addressDTO,
 			com.liferay.portal.kernel.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
@@ -67,7 +68,8 @@ public class InvestorServiceHttp {
 				_addInvestorParameterTypes0);
 
 			MethodHandler methodHandler = new MethodHandler(
-				methodKey, userId, name, phoneNumber, email, serviceContext);
+				methodKey, userId, name, phoneNumber, email, active, addressDTO,
+				serviceContext);
 
 			Object returnObj = null;
 
@@ -97,7 +99,8 @@ public class InvestorServiceHttp {
 
 	public static com.nss.taskcategory.model.Investor updateInvestor(
 			HttpPrincipal httpPrincipal, long investorId, String name,
-			String phoneNumber, String email,
+			String phoneNumber, String email, boolean active,
+			com.nss.commoncategory.model.AddressDTO addressDTO,
 			com.liferay.portal.kernel.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
@@ -107,8 +110,8 @@ public class InvestorServiceHttp {
 				_updateInvestorParameterTypes1);
 
 			MethodHandler methodHandler = new MethodHandler(
-				methodKey, investorId, name, phoneNumber, email,
-				serviceContext);
+				methodKey, investorId, name, phoneNumber, email, active,
+				addressDTO, serviceContext);
 
 			Object returnObj = null;
 
@@ -253,12 +256,14 @@ public class InvestorServiceHttp {
 	private static Log _log = LogFactoryUtil.getLog(InvestorServiceHttp.class);
 
 	private static final Class<?>[] _addInvestorParameterTypes0 = new Class[] {
-		long.class, String.class, String.class, String.class,
+		long.class, String.class, String.class, String.class, boolean.class,
+		com.nss.commoncategory.model.AddressDTO.class,
 		com.liferay.portal.kernel.service.ServiceContext.class
 	};
 	private static final Class<?>[] _updateInvestorParameterTypes1 =
 		new Class[] {
-			long.class, String.class, String.class, String.class,
+			long.class, String.class, String.class, String.class, boolean.class,
+			com.nss.commoncategory.model.AddressDTO.class,
 			com.liferay.portal.kernel.service.ServiceContext.class
 		};
 	private static final Class<?>[] _hasAddPermissionParameterTypes2 =

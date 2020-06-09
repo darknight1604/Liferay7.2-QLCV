@@ -79,7 +79,8 @@ public class InvestorModelImpl
 		{"companyId", Types.BIGINT}, {"userId", Types.BIGINT},
 		{"userName", Types.VARCHAR}, {"createDate", Types.TIMESTAMP},
 		{"modifiedDate", Types.TIMESTAMP}, {"name", Types.VARCHAR},
-		{"phoneNumber", Types.VARCHAR}, {"email", Types.VARCHAR}
+		{"phoneNumber", Types.VARCHAR}, {"email", Types.VARCHAR},
+		{"active_", Types.BOOLEAN}
 	};
 
 	public static final Map<String, Integer> TABLE_COLUMNS_MAP =
@@ -96,10 +97,11 @@ public class InvestorModelImpl
 		TABLE_COLUMNS_MAP.put("name", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("phoneNumber", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("email", Types.VARCHAR);
+		TABLE_COLUMNS_MAP.put("active_", Types.BOOLEAN);
 	}
 
 	public static final String TABLE_SQL_CREATE =
-		"create table nss_taskcategory_investor (investorId LONG not null primary key,groupId LONG,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,name VARCHAR(75) null,phoneNumber VARCHAR(75) null,email VARCHAR(75) null)";
+		"create table nss_taskcategory_investor (investorId LONG not null primary key,groupId LONG,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,name VARCHAR(75) null,phoneNumber VARCHAR(75) null,email VARCHAR(75) null,active_ BOOLEAN)";
 
 	public static final String TABLE_SQL_DROP =
 		"drop table nss_taskcategory_investor";
@@ -151,6 +153,7 @@ public class InvestorModelImpl
 		model.setName(soapModel.getName());
 		model.setPhoneNumber(soapModel.getPhoneNumber());
 		model.setEmail(soapModel.getEmail());
+		model.setActive(soapModel.isActive());
 
 		return model;
 	}
@@ -331,6 +334,9 @@ public class InvestorModelImpl
 		attributeGetterFunctions.put("email", Investor::getEmail);
 		attributeSetterBiConsumers.put(
 			"email", (BiConsumer<Investor, String>)Investor::setEmail);
+		attributeGetterFunctions.put("active", Investor::getActive);
+		attributeSetterBiConsumers.put(
+			"active", (BiConsumer<Investor, Boolean>)Investor::setActive);
 
 		_attributeGetterFunctions = Collections.unmodifiableMap(
 			attributeGetterFunctions);
@@ -504,6 +510,23 @@ public class InvestorModelImpl
 		_email = email;
 	}
 
+	@JSON
+	@Override
+	public boolean getActive() {
+		return _active;
+	}
+
+	@JSON
+	@Override
+	public boolean isActive() {
+		return _active;
+	}
+
+	@Override
+	public void setActive(boolean active) {
+		_active = active;
+	}
+
 	public long getColumnBitmask() {
 		return _columnBitmask;
 	}
@@ -550,6 +573,7 @@ public class InvestorModelImpl
 		investorImpl.setName(getName());
 		investorImpl.setPhoneNumber(getPhoneNumber());
 		investorImpl.setEmail(getEmail());
+		investorImpl.setActive(isActive());
 
 		investorImpl.resetOriginalValues();
 
@@ -689,6 +713,8 @@ public class InvestorModelImpl
 			investorCacheModel.email = null;
 		}
 
+		investorCacheModel.active = isActive();
+
 		return investorCacheModel;
 	}
 
@@ -778,6 +804,7 @@ public class InvestorModelImpl
 	private String _name;
 	private String _phoneNumber;
 	private String _email;
+	private boolean _active;
 	private long _columnBitmask;
 	private Investor _escapedModel;
 

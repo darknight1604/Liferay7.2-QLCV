@@ -33,7 +33,7 @@ create table nss_taskcategory_currency (
 create index IX_ACEBDB67 on nss_taskcategory_currency (active_);
 create index IX_4C48D620 on nss_taskcategory_currency (code_);
 create index IX_CBD664C3 on nss_taskcategory_currency (companyId, active_);
-
+ALTER TABLE nss_taskcategory_investor ADD COLUMN active_ BOOL default true;
 --@Author: tanhq
 --@CreateDate: 05/06/2020
 create table nss_taskcategory_taskgroup (

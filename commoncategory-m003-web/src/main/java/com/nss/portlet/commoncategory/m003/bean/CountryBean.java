@@ -117,12 +117,15 @@ public class CountryBean {
 		PrimeFaces.current().executeScript("PF('dlgAdd').show();"); 
 	}
 	
-	public void saveNew(ActionEvent event) { 
-		save(event);
-		_createNewObject();
+	public void saveNew(ActionEvent event) {
+		_save(true);
 	}
 	
 	public void save(ActionEvent event) { 
+		_save(false);
+	}
+	
+	public void _save(boolean saveNew) { 
 		try {
 			if(country.getCountryId() > 0) {
 				country = countryServiceTracker.getService().updateCountry(country.getCountryId(), continentId, country.getName(), country.getInternationalName(), 
@@ -136,6 +139,9 @@ public class CountryBean {
 				lazyModel.setRowCount(MyConstants.REFRESH_PAGE);
 			}
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, LanguageUtil_m003.getString(MyConstants.PROCESSED_SUCCESSFULLY), StringPool.BLANK));
+			if(saveNew) {
+				_createNewObject();
+			}
 		} catch (Exception e) {
 			if(e instanceof PrincipalException) {
 				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, LanguageUtil_m003.getString(MyConstants.ERROR_PRINCIPAL), StringPool.BLANK));

@@ -99,11 +99,14 @@ public class ContinentBean {
 	}
 	
 	public void saveNew(ActionEvent event) {
-		save(event);
-		_createNewObject();
+		_save(true);
 	}
 	
 	public void save(ActionEvent event) { 
+		_save(false);
+	}
+	
+	public void _save(boolean saveNew) { 
 		try {
 			if(continent.getContinentId() > 0) {
 				continent = continentServiceTracker.getService().update(continent.getContinentId(), 
@@ -117,6 +120,9 @@ public class ContinentBean {
 				lazyModel.setRowCount(MyConstants.REFRESH_PAGE);
 			}
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, LanguageUtil_m002.getString(MyConstants.PROCESSED_SUCCESSFULLY), StringPool.BLANK));
+			if(saveNew) {
+				_createNewObject();
+			}
 		} catch (Exception e) {
 			if(e instanceof PrincipalException) {
 				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, LanguageUtil_m002.getString(MyConstants.ERROR_PRINCIPAL), StringPool.BLANK));

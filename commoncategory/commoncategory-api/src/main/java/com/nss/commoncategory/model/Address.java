@@ -56,4 +56,16 @@ public interface Address extends AddressModel, PersistedModel {
 
 		};
 
+	public Country getCountry();
+
+	public City getCity();
+
+	public District getDistrict();
+
+	public Ward getWard();
+
+	public Street getStreet();
+
+	public String getFullAddress();
+
 }

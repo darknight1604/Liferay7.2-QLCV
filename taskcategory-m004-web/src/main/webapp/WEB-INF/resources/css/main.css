@@ -1,3 +1,16 @@
 .bold-hello-world {
     font-weight: bold;
 }
+.aui-w3 {width: 3%;}
+.aui-w10 {width: 10%;}
+.aui-w15 {width: 15%;}
+.aui-w35 {width: 35%;}
+.aui-w50 {width: 50%;}
+.aui-w85 {width: 85%;}
+.aui-w100 {width: 100%;}
+
+.aui-wb {font: bold 13px/15px Arial;}
+
+.ui-inputtextarea{width: 100%;}
+.ui-inputfield{width: 100%;}
+.ui-selectonemenu {width: 100%!important;}

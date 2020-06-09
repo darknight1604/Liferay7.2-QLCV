@@ -170,6 +170,7 @@
 		<column name="name" type="String" />
 		<column name="phoneNumber" type="String" />
 		<column name="email" type="String" />
+		<column name="active" type="boolean" />
 
 		<!-- Order -->
 

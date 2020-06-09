@@ -55,6 +55,7 @@ public class InvestorWrapper
 		attributes.put("name", getName());
 		attributes.put("phoneNumber", getPhoneNumber());
 		attributes.put("email", getEmail());
+		attributes.put("active", isActive());
 
 		return attributes;
 	}
@@ -120,6 +121,27 @@ public class InvestorWrapper
 		if (email != null) {
 			setEmail(email);
 		}
+
+		Boolean active = (Boolean)attributes.get("active");
+
+		if (active != null) {
+			setActive(active);
+		}
+	}
+
+	/**
+	 * Returns the active of this investor.
+	 *
+	 * @return the active of this investor
+	 */
+	@Override
+	public boolean getActive() {
+		return model.getActive();
+	}
+
+	@Override
+	public com.nss.commoncategory.model.Address getAddress() {
+		return model.getAddress();
 	}
 
 	/**
@@ -242,9 +264,29 @@ public class InvestorWrapper
 		return model.getUserUuid();
 	}
 
+	/**
+	 * Returns <code>true</code> if this investor is active.
+	 *
+	 * @return <code>true</code> if this investor is active; <code>false</code> otherwise
+	 */
+	@Override
+	public boolean isActive() {
+		return model.isActive();
+	}
+
 	@Override
 	public void persist() {
 		model.persist();
+	}
+
+	/**
+	 * Sets whether this investor is active.
+	 *
+	 * @param active the active of this investor
+	 */
+	@Override
+	public void setActive(boolean active) {
+		model.setActive(active);
 	}
 
 	/**

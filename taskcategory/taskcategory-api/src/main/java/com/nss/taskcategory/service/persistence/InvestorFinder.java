@@ -24,14 +24,14 @@ import org.osgi.annotation.versioning.ProviderType;
 public interface InvestorFinder {
 
 	public int countByBaseSearch(
-			long companyId, long groupId, int active, String name, String code,
-			String description, boolean andOperator)
+			long companyId, long groupId, int active, String name,
+			String phoneNumber, String email, boolean andOperator)
 		throws com.liferay.portal.kernel.exception.SystemException;
 
 	public java.util.List<com.nss.taskcategory.model.Investor> findByBaseSearch(
-			long companyId, long groupId, int active, String name, String code,
-			String description, boolean andOperator, int start, int end,
-			com.liferay.portal.kernel.util.OrderByComparator obc)
+			long companyId, long groupId, int active, String name,
+			String phoneNumber, String email, boolean andOperator, int start,
+			int end, com.liferay.portal.kernel.util.OrderByComparator obc)
 		throws com.liferay.portal.kernel.exception.SystemException;
 
 }

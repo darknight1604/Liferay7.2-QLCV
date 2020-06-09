@@ -67,13 +67,15 @@ public class InvestorServiceSoap {
 
 	public static com.nss.taskcategory.model.InvestorSoap addInvestor(
 			long userId, String name, String phoneNumber, String email,
+			boolean active, com.nss.commoncategory.model.AddressDTO addressDTO,
 			com.liferay.portal.kernel.service.ServiceContext serviceContext)
 		throws RemoteException {
 
 		try {
 			com.nss.taskcategory.model.Investor returnValue =
 				InvestorServiceUtil.addInvestor(
-					userId, name, phoneNumber, email, serviceContext);
+					userId, name, phoneNumber, email, active, addressDTO,
+					serviceContext);
 
 			return com.nss.taskcategory.model.InvestorSoap.toSoapModel(
 				returnValue);
@@ -87,13 +89,15 @@ public class InvestorServiceSoap {
 
 	public static com.nss.taskcategory.model.InvestorSoap updateInvestor(
 			long investorId, String name, String phoneNumber, String email,
+			boolean active, com.nss.commoncategory.model.AddressDTO addressDTO,
 			com.liferay.portal.kernel.service.ServiceContext serviceContext)
 		throws RemoteException {
 
 		try {
 			com.nss.taskcategory.model.Investor returnValue =
 				InvestorServiceUtil.updateInvestor(
-					investorId, name, phoneNumber, email, serviceContext);
+					investorId, name, phoneNumber, email, active, addressDTO,
+					serviceContext);
 
 			return com.nss.taskcategory.model.InvestorSoap.toSoapModel(
 				returnValue);

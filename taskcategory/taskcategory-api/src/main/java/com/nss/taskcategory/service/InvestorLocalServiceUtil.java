@@ -54,11 +54,13 @@ public class InvestorLocalServiceUtil {
 
 	public static com.nss.taskcategory.model.Investor addInvestor(
 			long userId, String name, String phoneNumber, String email,
+			boolean active, com.nss.commoncategory.model.AddressDTO addressDTO,
 			com.liferay.portal.kernel.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return getService().addInvestor(
-			userId, name, phoneNumber, email, serviceContext);
+			userId, name, phoneNumber, email, active, addressDTO,
+			serviceContext);
 	}
 
 	public static int countByBaseSearch(
@@ -315,11 +317,13 @@ public class InvestorLocalServiceUtil {
 
 	public static com.nss.taskcategory.model.Investor updateInvestor(
 			long investorId, String name, String phoneNumber, String email,
+			boolean active, com.nss.commoncategory.model.AddressDTO addressDTO,
 			com.liferay.portal.kernel.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return getService().updateInvestor(
-			investorId, name, phoneNumber, email, serviceContext);
+			investorId, name, phoneNumber, email, active, addressDTO,
+			serviceContext);
 	}
 
 	public static InvestorLocalService getService() {

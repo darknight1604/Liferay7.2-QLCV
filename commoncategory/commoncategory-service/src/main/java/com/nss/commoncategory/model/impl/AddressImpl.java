@@ -14,6 +14,19 @@
 
 package com.nss.commoncategory.model.impl;
 
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
+import com.nss.commoncategory.model.City;
+import com.nss.commoncategory.model.Country;
+import com.nss.commoncategory.model.District;
+import com.nss.commoncategory.model.Street;
+import com.nss.commoncategory.model.Ward;
+import com.nss.commoncategory.service.CityLocalServiceUtil;
+import com.nss.commoncategory.service.CountryLocalServiceUtil;
+import com.nss.commoncategory.service.DistrictLocalServiceUtil;
+import com.nss.commoncategory.service.StreetLocalServiceUtil;
+import com.nss.commoncategory.service.WardLocalServiceUtil;
+
 import org.osgi.annotation.versioning.ProviderType;
 
 /**
@@ -28,12 +41,90 @@ import org.osgi.annotation.versioning.ProviderType;
 @ProviderType
 public class AddressImpl extends AddressBaseImpl {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never reference this class directly. All methods that expect a address model instance should use the {@link com.nss.commoncategory.model.Address} interface instead.
 	 */
+	private String fullAddress;
+	
+	private Country country;
+	
+	private City city;
+	
+	private District district;
+	
+	private Ward ward;
+	
+	private Street street;
+	
+	private static Log _log = LogFactoryUtil.getLog(AddressImpl.class.getName());
+	
 	public AddressImpl() {
 	}
+	
+	public Country getCountry() {
+		if((country == null && getCountryId() > 0) || country.getCountryId() != getCountryId()) {
+			try {
+				country = CountryLocalServiceUtil.fetchCountry(getCountryId());
+			} catch (Exception e) {
+				_log.error(e.getMessage());
+			}
+		}
+		return country;
+	}
 
+	public City getCity() {
+		if((city == null && getCityId() > 0) || city.getCityId() != getCityId()) {
+			try {
+				city = CityLocalServiceUtil.fetchCity(getCityId());
+			} catch (Exception e) {
+				_log.error(e.getMessage());
+			}
+		}
+		return city;
+	}
+
+	public District getDistrict() {
+		if((district == null && getDistrictId() > 0) || district.getDistrictId() != getDistrictId()) {
+			try {
+				district = DistrictLocalServiceUtil.fetchDistrict(getDistrictId());
+			} catch (Exception e) {
+				_log.error(e.getMessage());
+			}
+		}
+		return district;
+	}
+
+	public Ward getWard() {
+		if((ward == null && getWardId() > 0) || ward.getWardId() != getWardId()) {
+			try {
+				ward = WardLocalServiceUtil.fetchWard(getWardId());
+			} catch (Exception e) {
+				_log.error(e.getMessage());
+			}
+		}
+		return ward;
+	}
+
+	public Street getStreet() {
+		if((street == null && getStreetId() > 0) || street.getStreetId() != getStreetId()) {
+			try {
+				street = StreetLocalServiceUtil.fetchStreet(getStreetId());
+			} catch (Exception e) {
+				_log.error(e.getMessage());
+			}
+		}
+		return street;
+	}
+
+	public String getFullAddress() {
+		return fullAddress;
+	}
+	
 }

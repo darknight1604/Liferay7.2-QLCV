@@ -16,11 +16,17 @@ package com.nss.taskcategory.service.persistence.impl;
 
 import com.liferay.portal.kernel.configuration.Configuration;
 import com.liferay.portal.kernel.dao.orm.SessionFactory;
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.service.persistence.impl.BasePersistenceImpl;
 
 import com.nss.taskcategory.model.Investor;
 import com.nss.taskcategory.service.persistence.InvestorPersistence;
 import com.nss.taskcategory.service.persistence.impl.constants.TASK_CATEGORYPersistenceConstants;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
 
 import javax.sql.DataSource;
 
@@ -35,6 +41,17 @@ public abstract class InvestorFinderBaseImpl
 
 	public InvestorFinderBaseImpl() {
 		setModelClass(Investor.class);
+
+		Map<String, String> dbColumnNames = new HashMap<String, String>();
+
+		dbColumnNames.put("active", "active_");
+
+		setDBColumnNames(dbColumnNames);
+	}
+
+	@Override
+	public Set<String> getBadColumnNames() {
+		return investorPersistence.getBadColumnNames();
 	}
 
 	@Override
@@ -66,6 +83,9 @@ public abstract class InvestorFinderBaseImpl
 
 	@Reference
 	protected InvestorPersistence investorPersistence;
+
+	private static final Log _log = LogFactoryUtil.getLog(
+		InvestorFinderBaseImpl.class);
 
 	static {
 		try {

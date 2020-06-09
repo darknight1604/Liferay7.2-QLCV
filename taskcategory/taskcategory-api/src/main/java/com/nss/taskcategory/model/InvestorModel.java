@@ -230,4 +230,25 @@ public interface InvestorModel
 	 */
 	public void setEmail(String email);
 
+	/**
+	 * Returns the active of this investor.
+	 *
+	 * @return the active of this investor
+	 */
+	public boolean getActive();
+
+	/**
+	 * Returns <code>true</code> if this investor is active.
+	 *
+	 * @return <code>true</code> if this investor is active; <code>false</code> otherwise
+	 */
+	public boolean isActive();
+
+	/**
+	 * Sets whether this investor is active.
+	 *
+	 * @param active the active of this investor
+	 */
+	public void setActive(boolean active);
+
 }

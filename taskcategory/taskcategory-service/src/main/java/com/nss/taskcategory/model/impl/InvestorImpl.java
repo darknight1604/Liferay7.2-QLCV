@@ -14,6 +14,16 @@
 
 package com.nss.taskcategory.model.impl;
 
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
+import com.liferay.portal.kernel.model.ClassName;
+import com.liferay.portal.kernel.service.ClassNameLocalServiceUtil;
+import com.nss.commoncategory.model.Address;
+import com.nss.commoncategory.service.AddressLocalServiceUtil;
+import com.nss.taskcategory.model.Investor;
+
+import java.util.List;
+
 import org.osgi.annotation.versioning.ProviderType;
 
 /**
@@ -33,7 +43,35 @@ public class InvestorImpl extends InvestorBaseImpl {
 	 *
 	 * Never reference this class directly. All methods that expect a investor model instance should use the {@link com.nss.taskcategory.model.Investor} interface instead.
 	 */
+	
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
+	private Address address;
+	
+	private static Log _log = LogFactoryUtil.getLog(InvestorImpl.class.getName()); 
+
 	public InvestorImpl() {
+	}
+
+	public Address getAddress() {
+		if(address == null) {
+			try {
+				ClassName cnInvestor = ClassNameLocalServiceUtil.getClassName(Investor.class.getName());
+				if(cnInvestor != null) {
+					List<Address> list = AddressLocalServiceUtil.findByClassNameId_ClassPK(cnInvestor.getClassNameId(), getInvestorId());
+					if(list != null && !list.isEmpty()) {
+						address = list.get(0);
+					}
+				}
+			} catch (Exception e) {
+				_log.error(e.getMessage());
+			}
+		}
+		return address;
 	}
 
 }

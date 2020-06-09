@@ -17,10 +17,15 @@ package com.nss.taskcategory.service.impl;
 import com.liferay.portal.aop.AopService;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
+import com.liferay.portal.kernel.model.ClassName;
 import com.liferay.portal.kernel.model.User;
+import com.liferay.portal.kernel.service.ClassNameLocalServiceUtil;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.service.UserLocalServiceUtil;
 import com.liferay.portal.kernel.util.OrderByComparator;
+import com.nss.commoncategory.model.Address;
+import com.nss.commoncategory.model.AddressDTO;
+import com.nss.commoncategory.service.AddressLocalServiceUtil;
 import com.nss.taskcategory.model.Investor;
 import com.nss.taskcategory.service.base.InvestorLocalServiceBaseImpl;
 
@@ -54,7 +59,7 @@ public class InvestorLocalServiceImpl extends InvestorLocalServiceBaseImpl {
 	 * Never reference this class directly. Use <code>com.nss.taskcategory.service.InvestorLocalService</code> via injection or a <code>org.osgi.util.tracker.ServiceTracker</code> or use <code>com.nss.taskcategory.service.InvestorLocalServiceUtil</code>.
 	 */
 	public Investor addInvestor(long userId, String name, 
-			String phoneNumber, String email, ServiceContext serviceContext) throws PortalException {
+			String phoneNumber, String email, boolean active, AddressDTO addressDTO, ServiceContext serviceContext) throws PortalException {
 		long investorId = counterLocalService.increment(Investor.class.getName());
 		Investor investor = createInvestor(investorId);
 		User user = UserLocalServiceUtil.fetchUser(userId);
@@ -74,6 +79,15 @@ public class InvestorLocalServiceImpl extends InvestorLocalServiceBaseImpl {
 		investor.setPhoneNumber(phoneNumber);
 		investor.setEmail(email);
 		investor.setExpandoBridgeAttributes(serviceContext);
+		investor.setActive(active);
+		
+		if(addressDTO != null) {
+			ClassName cnInvestor = ClassNameLocalServiceUtil.getClassName(Investor.class.getName());
+			AddressLocalServiceUtil.addAddress(userId, cnInvestor != null ? cnInvestor.getClassNameId() : 0, investorId, 
+					addressDTO.getCountryId(), addressDTO.getCityId(), addressDTO.getDistrictId(), 
+					addressDTO.getWardId(), addressDTO.getStreetId(), addressDTO.getStreetOther(), addressDTO.getQuarter(), 
+					addressDTO.getHouseNumber(), addressDTO.getBuilding(), addressDTO.getFloor(), addressDTO.getRoom(), addressDTO.getType(), serviceContext);
+		}
 		
 		addInvestor(investor);
 		
@@ -81,7 +95,7 @@ public class InvestorLocalServiceImpl extends InvestorLocalServiceBaseImpl {
 	}
 	
 	public Investor updateInvestor(long investorId, String name, 
-			String phoneNumber, String email, ServiceContext serviceContext) throws PortalException {
+			String phoneNumber, String email, boolean active, AddressDTO addressDTO, ServiceContext serviceContext) throws PortalException {
 		Investor investor = fetchInvestor(investorId);
 		Date now = new Date();
 		investor.setModifiedDate(now);
@@ -90,6 +104,23 @@ public class InvestorLocalServiceImpl extends InvestorLocalServiceBaseImpl {
 		investor.setPhoneNumber(phoneNumber);
 		investor.setEmail(email);
 		investor.setExpandoBridgeAttributes(serviceContext);
+		investor.setActive(active);
+		
+		if(addressDTO != null) {
+			ClassName cnInvestor = ClassNameLocalServiceUtil.getClassName(Investor.class.getName());
+			int count = AddressLocalServiceUtil.countByC_C_T(cnInvestor.getClassNameId(), investorId, addressDTO.getType());
+			if(count > 0) {
+				List<Address> list = AddressLocalServiceUtil.findByC_C_T(cnInvestor.getClassNameId(), investorId, addressDTO.getType());
+				AddressLocalServiceUtil.updateAddress(list.get(0).getAddressId(), cnInvestor.getClassNameId(), investorId, addressDTO.getCountryId(), addressDTO.getCityId(), addressDTO.getDistrictId(), 
+						addressDTO.getWardId(), addressDTO.getStreetId(), addressDTO.getStreetOther(), addressDTO.getQuarter(), 
+						addressDTO.getHouseNumber(), addressDTO.getBuilding(), addressDTO.getFloor(), addressDTO.getRoom(), addressDTO.getType(), serviceContext);
+			}else {
+				AddressLocalServiceUtil.addAddress(serviceContext.getUserId(), cnInvestor != null ? cnInvestor.getClassNameId() : 0, investorId, 
+						addressDTO.getCountryId(), addressDTO.getCityId(), addressDTO.getDistrictId(), 
+						addressDTO.getWardId(), addressDTO.getStreetId(), addressDTO.getStreetOther(), addressDTO.getQuarter(), 
+						addressDTO.getHouseNumber(), addressDTO.getBuilding(), addressDTO.getFloor(), addressDTO.getRoom(), addressDTO.getType(), serviceContext);
+			}
+		}
 		
 		updateInvestor(investor);
 		

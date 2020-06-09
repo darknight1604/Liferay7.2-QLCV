@@ -8,6 +8,7 @@
 			WHERE true
 			AND companyId = ?
 			AND groupId = ?
+			AND active_ = ?
 			AND
 				(	
 					(LOWER(name) LIKE ? [$AND_OR_NULL_CHECK$]) [$AND_OR_CONNECTOR$]
@@ -24,6 +25,7 @@
 			WHERE true
 			AND companyId = ?
 			AND groupId = ?
+			AND active_ = ?
 			AND
 				(	
 					(LOWER(name) LIKE ? [$AND_OR_NULL_CHECK$]) [$AND_OR_CONNECTOR$]

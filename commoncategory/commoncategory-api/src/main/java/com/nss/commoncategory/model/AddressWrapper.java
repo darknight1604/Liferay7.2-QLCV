@@ -219,6 +219,11 @@ public class AddressWrapper
 		return model.getBuilding();
 	}
 
+	@Override
+	public City getCity() {
+		return model.getCity();
+	}
+
 	/**
 	 * Returns the city ID of this address.
 	 *
@@ -269,6 +274,11 @@ public class AddressWrapper
 		return model.getCompanyId();
 	}
 
+	@Override
+	public Country getCountry() {
+		return model.getCountry();
+	}
+
 	/**
 	 * Returns the country ID of this address.
 	 *
@@ -289,6 +299,11 @@ public class AddressWrapper
 		return model.getCreateDate();
 	}
 
+	@Override
+	public District getDistrict() {
+		return model.getDistrict();
+	}
+
 	/**
 	 * Returns the district ID of this address.
 	 *
@@ -307,6 +322,11 @@ public class AddressWrapper
 	@Override
 	public String getFloor() {
 		return model.getFloor();
+	}
+
+	@Override
+	public String getFullAddress() {
+		return model.getFullAddress();
 	}
 
 	/**
@@ -369,6 +389,11 @@ public class AddressWrapper
 		return model.getRoom();
 	}
 
+	@Override
+	public Street getStreet() {
+		return model.getStreet();
+	}
+
 	/**
 	 * Returns the street ID of this address.
 	 *
@@ -427,6 +452,11 @@ public class AddressWrapper
 	@Override
 	public String getUserUuid() {
 		return model.getUserUuid();
+	}
+
+	@Override
+	public Ward getWard() {
+		return model.getWard();
 	}
 
 	/**

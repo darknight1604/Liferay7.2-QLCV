@@ -20,6 +20,7 @@ import com.liferay.portal.kernel.security.auth.PrincipalException;
 import com.liferay.portal.kernel.security.permission.resource.PortletResourcePermission;
 import com.liferay.portal.kernel.security.permission.resource.PortletResourcePermissionFactory;
 import com.liferay.portal.kernel.service.ServiceContext;
+import com.nss.commoncategory.model.AddressDTO;
 import com.nss.taskcategory.constants.TaskCategoryActionKeys;
 import com.nss.taskcategory.constants.TaskCategoryResourceConstants;
 import com.nss.taskcategory.model.Investor;
@@ -57,15 +58,15 @@ public class InvestorServiceImpl extends InvestorServiceBaseImpl {
 	private static volatile PortletResourcePermission _portletResourcePermission = PortletResourcePermissionFactory.getInstance(InvestorServiceImpl.class, "_portletResourcePermission", TaskCategoryResourceConstants.RESOURCE_NAME);
 	
 	public Investor addInvestor(long userId, String name, 
-			String phoneNumber, String email, ServiceContext serviceContext) throws PortalException {
+			String phoneNumber, String email, boolean active, AddressDTO addressDTO, ServiceContext serviceContext) throws PortalException {
 		_portletResourcePermission.check(getPermissionChecker(), serviceContext.getScopeGroupId(), TaskCategoryActionKeys.ADD_INVESTOR);
-		return investorLocalService.addInvestor(userId, name, phoneNumber, email, serviceContext);
+		return investorLocalService.addInvestor(userId, name, phoneNumber, email, active, addressDTO, serviceContext);
 	}
 	
 	public Investor updateInvestor(long investorId, String name, 
-			String phoneNumber, String email, ServiceContext serviceContext) throws PortalException {
+			String phoneNumber, String email, boolean active, AddressDTO addressDTO, ServiceContext serviceContext) throws PortalException {
 		_portletResourcePermission.check(getPermissionChecker(), serviceContext.getScopeGroupId(), TaskCategoryActionKeys.UPDATE);
-		return investorLocalService.updateInvestor(investorId, name, phoneNumber, email, serviceContext);
+		return investorLocalService.updateInvestor(investorId, name, phoneNumber, email, active, addressDTO, serviceContext);
 	}
 	
 	public boolean hasAddPermission(long groupId) throws PrincipalException {

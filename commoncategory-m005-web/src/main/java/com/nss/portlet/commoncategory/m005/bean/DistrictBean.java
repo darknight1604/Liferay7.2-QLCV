@@ -129,12 +129,15 @@ public class DistrictBean {
 		PrimeFaces.current().executeScript("PF('dlgAdd').show();"); 
 	}
 	
-	public void saveNew(ActionEvent event) { 
-		save(event);
-		_createNewObject();
+	public void saveNew(ActionEvent event) {
+		_save(true);
 	}
 	
 	public void save(ActionEvent event) { 
+		_save(false);
+	}
+	
+	public void _save(boolean saveNew) { 
 		try {
 			if(district.getDistrictId() > 0) {
 				district = districtServiceTracker.getService().updateDistrict(district.getDistrictId(), 
@@ -149,6 +152,9 @@ public class DistrictBean {
 				lazyModel.setRowCount(MyConstants.REFRESH_PAGE);
 			}
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, LanguageUtil_m005.getString(MyConstants.PROCESSED_SUCCESSFULLY), StringPool.BLANK));
+			if(saveNew) {
+				_createNewObject();
+			}
 		} catch (Exception e) {
 			if(e instanceof PrincipalException) {
 				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, LanguageUtil_m005.getString(MyConstants.ERROR_PRINCIPAL), StringPool.BLANK));
