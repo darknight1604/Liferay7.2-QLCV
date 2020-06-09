@@ -39,6 +39,7 @@ import com.liferay.portal.kernel.util.PortalUtil;
 
 import com.nss.commoncategory.model.Continent;
 import com.nss.commoncategory.service.ContinentLocalService;
+import com.nss.commoncategory.service.persistence.AddressPersistence;
 import com.nss.commoncategory.service.persistence.CityFinder;
 import com.nss.commoncategory.service.persistence.CityPersistence;
 import com.nss.commoncategory.service.persistence.ContinentFinder;
@@ -389,6 +390,9 @@ public abstract class ContinentLocalServiceBaseImpl
 			throw new SystemException(e);
 		}
 	}
+
+	@Reference
+	protected AddressPersistence addressPersistence;
 
 	@Reference
 	protected CityPersistence cityPersistence;

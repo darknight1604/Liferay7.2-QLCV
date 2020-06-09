@@ -21,7 +21,7 @@ import com.liferay.portal.kernel.util.Accessor;
 import org.osgi.annotation.versioning.ProviderType;
 
 /**
- * The extended model interface for the Continent service. Represents a row in the &quot;nss_platform_continent&quot; database table, with each column mapped to a property of this class.
+ * The extended model interface for the Continent service. Represents a row in the &quot;nss_commoncategory_continent&quot; database table, with each column mapped to a property of this class.
  *
  * @author Brian Wing Shun Chan
  * @see ContinentModel

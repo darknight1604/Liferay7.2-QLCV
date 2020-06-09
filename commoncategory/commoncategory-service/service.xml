@@ -3,7 +3,7 @@
 
 <service-builder dependency-injector="ds" package-path="com.nss.commoncategory">
 	<namespace>NSS</namespace>
-	<entity name="Continent" local-service="true" remote-service="true" table="nss_platform_continent">
+	<entity name="Continent" local-service="true" remote-service="true" table="nss_commoncategory_continent">
 		<!-- PK fields -->
 		<column name="continentId" type="long" primary="true" />
 		<!--Audit fields -->
@@ -35,7 +35,7 @@
 			<finder-column name="active" />
 		</finder>
 	</entity>
-	<entity name="Country" local-service="true" remote-service="true" table="nss_platform_country">
+	<entity name="Country" local-service="true" remote-service="true" table="nss_commoncategory_country">
 		<!-- PK fields -->
 		<column name="countryId" type="long" primary="true" />
 		<!--Audit fields -->
@@ -69,7 +69,7 @@
 			<finder-column name="name" />
 		</finder>
 	</entity>
-	<entity name="City" local-service="true" remote-service="true" table="nss_platform_city">
+	<entity name="City" local-service="true" remote-service="true" table="nss_commoncategory_city">
 		<!-- PK fields -->
 		<column name="cityId" type="long" primary="true" />
 		<!--Audit fields -->
@@ -107,7 +107,7 @@
 		</finder>
 	</entity>
 
-	<entity name="District" local-service="true" remote-service="true" table="nss_platform_district">
+	<entity name="District" local-service="true" remote-service="true" table="nss_commoncategory_district">
 		<!-- PK fields -->
 		<column name="districtId" type="long" primary="true" />
 		<!--Audit fields -->
@@ -145,7 +145,7 @@
 			<finder-column name="code" />
 		</finder>
 	</entity>
-	<entity name="Ward" local-service="true" remote-service="true" table="nss_platform_ward">
+	<entity name="Ward" local-service="true" remote-service="true" table="nss_commoncategory_ward">
 		<!-- PK fields -->
 		<column name="wardId" type="long" primary="true" />
 		<!--Audit fields -->
@@ -185,7 +185,7 @@
 		</finder>
 	</entity>
 
-	<entity name="Street" local-service="true" remote-service="true" table="nss_platform_street">
+	<entity name="Street" local-service="true" remote-service="true" table="nss_commoncategory_street">
 		<!-- PK fields -->
 		<column name="streetId" type="long" primary="true" />
 		<!--Group instance -->
@@ -232,6 +232,49 @@
 		</finder>
 		<finder name="Code" return-type="Street">
 			<finder-column name="code" />
+		</finder>
+	</entity>
+	<entity name="Address" local-service="true" remote-service="false" table="nss_commoncategory_address">
+		<!-- PK fields -->
+		<column name="addressId" type="long" primary="true" />
+		<!--Group instance -->
+		<column name="groupId" type="long" />
+		<!--Audit fields -->
+		<column name="companyId" type="long" />
+		<column name="userId" type="long" />
+		<column name="userName" type="String" />
+		<column name="createDate" type="Date" />
+		<column name="modifiedDate" type="Date" />
+		<!-- Other fields -->
+		<column name="classNameId" type="long" />
+		<column name="classPK" type="long" />
+		<column name="countryId" type="long" />
+		<column name="cityId" type="long" />
+		<column name="districtId" type="long" />
+		<column name="wardId" type="long" />
+		<column name="streetId" type="long" />
+		<column name="streetOther" type="String" />
+		<column name="quarter" type="String" />
+		<column name="houseNumber" type="String" />
+		<column name="building" type="String" />
+		<column name="floor" type="String" />
+		<column name="room" type="String" />
+		<column name="type" type="int" />
+		<order>
+			<order-column name="addressId" order-by="desc" />
+		</order>
+		<!-- Finder methods -->
+		<finder name="CompanyId" return-type="Collection">
+			<finder-column name="companyId" />
+		</finder>
+		<finder name="ClassNameId_ClassPK" return-type="Collection">
+			<finder-column name="classNameId" />
+			<finder-column name="classPK" />
+		</finder>
+		<finder name="C_C_T" return-type="Collection">
+			<finder-column name="classNameId" />
+			<finder-column name="classPK" />
+			<finder-column name="type" />
 		</finder>
 	</entity>
 	<exceptions>

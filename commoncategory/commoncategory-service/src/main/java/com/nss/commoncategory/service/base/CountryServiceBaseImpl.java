@@ -26,6 +26,7 @@ import com.liferay.portal.kernel.util.PortalUtil;
 
 import com.nss.commoncategory.model.Country;
 import com.nss.commoncategory.service.CountryService;
+import com.nss.commoncategory.service.persistence.AddressPersistence;
 import com.nss.commoncategory.service.persistence.CityFinder;
 import com.nss.commoncategory.service.persistence.CityPersistence;
 import com.nss.commoncategory.service.persistence.ContinentFinder;
@@ -116,6 +117,9 @@ public abstract class CountryServiceBaseImpl
 			throw new SystemException(e);
 		}
 	}
+
+	@Reference
+	protected AddressPersistence addressPersistence;
 
 	@Reference
 	protected CityPersistence cityPersistence;

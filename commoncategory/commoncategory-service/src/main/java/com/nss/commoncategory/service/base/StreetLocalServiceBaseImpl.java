@@ -39,6 +39,7 @@ import com.liferay.portal.kernel.util.PortalUtil;
 
 import com.nss.commoncategory.model.Street;
 import com.nss.commoncategory.service.StreetLocalService;
+import com.nss.commoncategory.service.persistence.AddressPersistence;
 import com.nss.commoncategory.service.persistence.CityFinder;
 import com.nss.commoncategory.service.persistence.CityPersistence;
 import com.nss.commoncategory.service.persistence.ContinentFinder;
@@ -386,6 +387,9 @@ public abstract class StreetLocalServiceBaseImpl
 			throw new SystemException(e);
 		}
 	}
+
+	@Reference
+	protected AddressPersistence addressPersistence;
 
 	@Reference
 	protected CityPersistence cityPersistence;

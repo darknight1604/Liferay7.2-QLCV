@@ -79,7 +79,7 @@
 		            		actionListener="#{continentBean.update}">
 		            		<p:resetInput target=":frm:dialog"/>
 		            	</p:menuitem>
-						<p:menuitem value="#{item.active ? i18n['hoat-dong-m002'] : i18n['ngung-hoat-dong-m002']}" 
+						<p:menuitem value="#{item.active ? i18n['ngung-hoat-dong-m002'] : i18n['hoat-dong-m002']}" 
 							process="@this" actionListener="#{continentBean.deActivate}" 
 							update=":frm:dt" 
 							onclick="if (! confirm('#{i18n['ban-co-muon-thuc-hien-thao-tac-nay-m002']} ? ')) {return false;}" />

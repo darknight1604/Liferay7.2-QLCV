@@ -85,7 +85,7 @@
 		            		actionListener="#{countryBean.update}">
 		            		<p:resetInput target=":frm:dialog"/>
 		            	</p:menuitem>	
-						<p:menuitem value="#{item.active ? i18n['hoat-dong-m003'] : i18n['ngung-hoat-dong-m003']}" 
+						<p:menuitem value="#{item.active ? i18n['ngung-hoat-dong-m003'] : i18n['hoat-dong-m003']}" 
 							process="@this" actionListener="#{countryBean.deActivate}" 
 							update=":frm:dt" 
 							onclick="if (! confirm('#{i18n['ban-co-muon-thuc-hien-thao-tac-nay-m003']} ? ')) {return false;}" />
